@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void cadastrar_cliente(cliente *head_c, char *nome, char *cpf, char *telefone){
+void cadastrar_cliente(cliente *head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento){
     cliente *cliente_novo;
     cliente_novo = malloc (sizeof(cliente)); 
     if (cliente_novo == NULL){
@@ -16,6 +16,8 @@ void cadastrar_cliente(cliente *head_c, char *nome, char *cpf, char *telefone){
     strcpy(cliente_novo->nome,nome);
     strcpy(cliente_novo->cpf,cpf);
     strcpy(cliente_novo->telefone,telefone);
+    strcpy(cliente_novo->email,email);
+    cliente_novo->data_nascimento = data_nascimento;
 
     cliente_novo -> prox = head_c -> prox;
     head_c -> prox = cliente_novo;
@@ -27,6 +29,8 @@ void listar_clientes(cliente *head_c){
         printf("Nome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
         printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
+        printf("Email: %s\n\n\n\n", temp_cliente -> email);
+        printf("Data de nascimento: %hd/%hd/%d\n\n\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
         temp_cliente = temp_cliente -> prox;        
     } 
 }
@@ -37,9 +41,11 @@ cliente *buscar_cliente(cliente *head_c, char *cpf){
     cliente *temp_cliente = head_c;
     while (temp_cliente != NULL){
         if (!(strcmp(temp_cliente -> cpf,cpf))){
-            printf("Nome do cliente: %s\n", temp_cliente -> nome);
-            printf("CPF: %s\n", temp_cliente -> cpf);
-            printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
+        printf("Nome do cliente: %s\n", temp_cliente -> nome);
+        printf("CPF: %s\n", temp_cliente -> cpf);
+        printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
+        printf("Email: %s\n\n\n\n", temp_cliente -> email);
+        printf("Data de nascimento: %hd/%hd/%d\n\n\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
             return temp_cliente;
         }
         temp_cliente = temp_cliente -> prox;        
@@ -50,7 +56,7 @@ cliente *buscar_cliente(cliente *head_c, char *cpf){
 }
 
 
-void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, char *novo_telefone, short opcao){
+void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, char *novo_telefone, char *novo_email, data *nova_data_nascimento, short opcao){
     if (opcao == 1){
         strcopy(cliente_editado -> nome, novo_nome);
         return;
@@ -61,6 +67,14 @@ void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, c
     }  
     if (opcao == 3){
         strcopy(cliente_editado -> telefone, novo_telefone);
+        return;
+    }
+    if (opcao == 4){
+        strcopy(cliente_editado -> email, novo_email);
+        return;
+    }
+    if (opcao == 5){
+        cliente_editado -> data_nascimento = nova_data_nascimento;
         return;
     }
 }
