@@ -1,7 +1,7 @@
 #pragma once
 
-#include "backend.h"
-#include "persistencia.h"
+#include "backend_p/backend.h"
+#include "persistencia_p/persistencia.h"
   
 void menu_modo_compra(cliente *head_c, produto *head_p);
 void menu_adicionar_carrinho(cliente *head_c, produto *head_p);

@@ -1,6 +1,6 @@
-#include "backend.h"
-#include "persistencia.h"
-#include "frontend.h"
+#include "backend_p/backend.h"
+#include "persistencia_p/persistencia.h"
+#include "frontend_p/frontend.h"
 
 
 #include <stdio.h>
