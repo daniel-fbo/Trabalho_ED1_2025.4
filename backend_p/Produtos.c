@@ -54,11 +54,11 @@ produto *buscar_produto(produto *head_p, char *id){
 
 void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, double novo_preco, short nova_qtd, short opcao){
     if (opcao == 1){
-        strcopy(produto_editado -> nome, novo_nome);
+        strcpy(produto_editado -> nome, novo_nome);
         return;
     }
     if (opcao == 2){
-        strcopy(produto_editado -> id, novo_id);
+        strcpy(produto_editado -> id, novo_id);
         return;
     }
     if (opcao == 3){

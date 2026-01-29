@@ -25,6 +25,6 @@ void menu_principal(cliente *head_c, produto *head_p){
     }
     system("cls");
     if (opcao==1){menu_gerenciamento_clientes(head_c, head_p);};
-    if (opcao==2){menu_gerenciamento_produtos(*head_c, head_p);};
-    if (opcao==3){menu_modo_compra(head_c, head_p);};
+    if (opcao==2){menu_gerenciamento_produtos(head_c, head_p);};
+    //if (opcao==3){menu_modo_compra(head_c, head_p);};
 }

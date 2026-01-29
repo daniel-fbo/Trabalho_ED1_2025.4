@@ -41,11 +41,11 @@ cliente *buscar_cliente(cliente *head_c, char *cpf){
     cliente *temp_cliente = head_c;
     while (temp_cliente != NULL){
         if (!(strcmp(temp_cliente -> cpf,cpf))){
-        printf("Nome do cliente: %s\n", temp_cliente -> nome);
+        printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
         printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
         printf("Email: %s\n\n\n\n", temp_cliente -> email);
-        printf("Data de nascimento: %hd/%hd/%d\n\n\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+        printf("Data de nascimento: %hd/%hd/%d\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
             return temp_cliente;
         }
         temp_cliente = temp_cliente -> prox;        

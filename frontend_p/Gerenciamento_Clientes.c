@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void menu_gerenciamento_clientes(head_c, head_p){
+ 
+void menu_gerenciamento_clientes(cliente *head_c, produto *head_p){
     int opcao=-1;
     while (opcao<1 || opcao>4){
         printf ("- - - - - - Gerenciamento de Clientes - - - - - -\n\n");
@@ -26,48 +26,60 @@ void menu_gerenciamento_clientes(head_c, head_p){
     }
     system("cls");
     if (opcao==1){menu_cadastro_cliente(head_c, head_p);};
-    if (opcao==2){listar_cliente(head_c, head_p);};
+    if (opcao==2){listar_clientes(head_c);};
     if (opcao==3){menu_buscar_cliente(head_c, head_p);};
-    if (opcao==4){menu_editar_cliente(head_c, head_p);};
+    //if (opcao==4){menu_editar_cliente(head_c, head_p);};
     if (opcao==5){menu_remover_cliente(head_c, head_p);};
 }
 
 
-void menu_cadastrar_turma(turma *lista_turmas, short *qtd_turmas){
-    srand(time(NULL));
-    printf("- - - - - - Cadastro de Turma - - - - - -\n\n");
-    printf("Digite o nome da turma:\n");
-    char nome[20];
-    scanf("%[^\n]", nome);
-    int codigo = (rand()%9000)+1000;   
-
-    cadastrar_turma(lista_turmas, qtd_turmas, nome, codigo);
-    menu_principal(lista_turmas,qtd_turmas);
-}
-
-void menu_cadastrar_aluno(turma *lista_turmas, short *qtd_turmas){
+void menu_cadastro_cliente(cliente *head_c, produto *head_p){
     printf("- - - - - - Cadastro de Aluno - - - - - -\n\n");
-    printf("Digite o nome do aluno:\n");
+    printf("Digite o nome do cliente:\n");
     char nome[100];
     scanf("%[^\n]", nome);
-    printf("Digite o CPF do aluno:\n");
+    printf("Digite o CPF do cliente:\n");
     char cpf[12];
-    scanf("%[^\n]", cpf); 
-    cadastrar_aluno(lista_turmas, qtd_turmas, nome, cpf);
-    menu_principal(lista_turmas,qtd_turmas);    
+    scanf("%[^\n]", cpf);  
+    printf("Digite o telefone do clienta:\n");
+    char telefone[12];
+    scanf("%[^\n]", telefone);
+    printf("Digite o email do cliente:\n");
+    char email[50];
+    scanf("%[^\n]", email); 
+    printf("Digite a data de nascimento do cliente (formato DD/MM/AAAA):\n");
+    short dia, mes;
+    int ano;
+    scanf("%hd/%hd/%d\n", &dia, &mes, &ano);
+    
+    data *data_nascimento;
+    data_nascimento = malloc(sizeof(data));
+    data_nascimento -> dia = dia;
+    data_nascimento -> mes = mes;
+    data_nascimento -> ano = ano;
+
+    cadastrar_cliente(head_c, nome, cpf, telefone, email, data_nascimento);
+    menu_principal(head_c, head_p);
 }
 
-void menu_buscar_aluno(turma *lista_turmas, short *qtd_turmas){
-    printf("- - - - - - Busca por Aluno - - - - - -\n\n");
-    printf("Digite o codigo da turma:\n");
-    int id;
-    scanf("%d", &id);
-    printf("Digite o cpf do aluno:\n");
-    char cpf[20];
-    scanf("%[^\n]", cpf);
-    turma *turma_aluno = buscar_turma(lista_turmas, qtd_turmas, id);
-    aluno *aluno_buscado = buscar_aluno(turma_aluno, cpf);
-    mostrar_aluno(aluno_buscado);
-    menu_principal(lista_turmas,qtd_turmas);    
+
+
+void menu_buscar_cliente(cliente *head_c, produto *head_p){
+    printf("- - - - - - Buscar Cliente - - - - - -\n\n");
+    printf("Digite o cpf do cliente:\n");
+    char cpf[12];
+    scanf("%%[^\n]", cpf);
+    buscar_cliente(head_c, cpf);
+    menu_principal(head_c, head_p);    
+}
+
+void menu_remover_cliente(cliente *head_c, produto *head_p){
+    printf("- - - - - - Remover Cliente - - - - - -\n\n");
+    printf("Digite o cpf do cliente:\n");
+    char cpf[12];
+    scanf("%%[^\n]", cpf);
+    cliente *cliente_removido = buscar_cliente(head_c, cpf);
+    remover_clientes(head_c, cliente_removido);
+    menu_principal(head_c, head_p);    
 }
 

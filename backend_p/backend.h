@@ -29,7 +29,7 @@ typedef struct Produto {
 } produto;
 
 
-void cadastrar_cliente(cliente *head_c, char *nome, char *cpf, char *telefone, char *email, data data_nascimento);
+void cadastrar_cliente(cliente *head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento);
 void cadastrar_produto(produto *head_p, char *nome, char *id, double preco, short qtd);
 
 void listar_clientes(cliente *head_c);
