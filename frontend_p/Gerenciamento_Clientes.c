@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
  
-void menu_gerenciamento_clientes(cliente *head_c, produto *head_p){
+//talvez com ponteiro duplo para alterar
+void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
     int opcao=-1;
     while (opcao<1 || opcao>4){
         printf ("- - - - - - Gerenciamento de Clientes - - - - - -\n\n");
@@ -15,9 +16,9 @@ void menu_gerenciamento_clientes(cliente *head_c, produto *head_p){
         printf ("5- Remover cliente.\n");
         printf ("6- Voltar ao menu principal.\n");
         printf("Digite a opcao desejada:\n");
-        scanf(" %d\n", &opcao);
+        scanf(" %d", &opcao);
         if (opcao==6){
-            menu_principal(head_c, head_p);
+            return;
         }
         if (opcao<1 || opcao>6){
             system("cls");
@@ -25,11 +26,11 @@ void menu_gerenciamento_clientes(cliente *head_c, produto *head_p){
         }
     }
     system("cls");
-    if (opcao==1){menu_cadastro_cliente(head_c, head_p);};
-    if (opcao==2){listar_clientes(head_c);};
-    if (opcao==3){menu_buscar_cliente(head_c, head_p);};
-    //if (opcao==4){menu_editar_cliente(head_c, head_p);};
-    if (opcao==5){menu_remover_cliente(head_c, head_p);};
+    if (opcao==1){menu_cadastro_cliente(*head_c, *head_p);};
+    if (opcao==2){listar_clientes(*head_c);};
+    if (opcao==3){menu_buscar_cliente(*head_c, *head_p);};
+    //if (opcao==4){menu_editar_cliente(*head_c, *head_p);};
+    if (opcao==5){menu_remover_cliente(head_c, *head_p);};
 }
 
 
@@ -37,16 +38,16 @@ void menu_cadastro_cliente(cliente *head_c, produto *head_p){
     printf("- - - - - - Cadastro de Aluno - - - - - -\n\n");
     printf("Digite o nome do cliente:\n");
     char nome[100];
-    scanf("%[^\n]", nome);
+    scanf(" %[^\n]", nome);
     printf("Digite o CPF do cliente:\n");
     char cpf[12];
-    scanf("%[^\n]", cpf);  
+    scanf(" %[^\n]", cpf);  
     printf("Digite o telefone do clienta:\n");
     char telefone[12];
-    scanf("%[^\n]", telefone);
+    scanf(" %[^\n]", telefone);
     printf("Digite o email do cliente:\n");
     char email[50];
-    scanf("%[^\n]", email); 
+    scanf(" %[^\n]", email); 
     printf("Digite a data de nascimento do cliente (formato DD/MM/AAAA):\n");
     short dia, mes;
     int ano;
@@ -58,8 +59,9 @@ void menu_cadastro_cliente(cliente *head_c, produto *head_p){
     data_nascimento -> mes = mes;
     data_nascimento -> ano = ano;
 
-    cadastrar_cliente(head_c, nome, cpf, telefone, email, data_nascimento);
-    menu_principal(head_c, head_p);
+    cadastrar_cliente(&head_c, nome, cpf, telefone, email, data_nascimento);
+    //menu_principal(head_c, head_p);
+    return;
 }
 
 
@@ -68,18 +70,24 @@ void menu_buscar_cliente(cliente *head_c, produto *head_p){
     printf("- - - - - - Buscar Cliente - - - - - -\n\n");
     printf("Digite o cpf do cliente:\n");
     char cpf[12];
-    scanf("%%[^\n]", cpf);
+    scanf(" %[^\n]", cpf);
     buscar_cliente(head_c, cpf);
-    menu_principal(head_c, head_p);    
+    //menu_principal(head_c, head_p);  
+    return;  
 }
 
-void menu_remover_cliente(cliente *head_c, produto *head_p){
+void menu_remover_cliente(cliente **head_c, produto *head_p){
     printf("- - - - - - Remover Cliente - - - - - -\n\n");
     printf("Digite o cpf do cliente:\n");
+
     char cpf[12];
-    scanf("%%[^\n]", cpf);
-    cliente *cliente_removido = buscar_cliente(head_c, cpf);
+    scanf(" %[^\n]", cpf);
+
+    cliente *cliente_removido = buscar_cliente(*head_c, cpf);
+
     remover_clientes(head_c, cliente_removido);
-    menu_principal(head_c, head_p);    
+    //menu_principal(head_c, head_p);   
+    return; 
 }
 
+//implementar a função editar cliente

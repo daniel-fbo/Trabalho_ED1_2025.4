@@ -15,9 +15,9 @@ void menu_gerenciamento_produtos(cliente *head_c, produto *head_p){
         printf ("5- Remover produto.\n");
         printf ("6- Voltar ao menu principal.\n");
         printf("Digite a opcao desejada:\n");
-        scanf(" %d\n", &opcao);
+        scanf(" %d", &opcao);
         if (opcao==6){
-            menu_principal(head_c, head_p);
+            return;
         }
         if (opcao<1 || opcao>6){
             system("cls");
@@ -36,10 +36,10 @@ void menu_cadastro_produto(cliente *head_c, produto *head_p){
     printf("- - - - - - Cadastro de Produto - - - - - -\n\n");
     printf("Digite o nome do produto:\n");
     char nome[100];
-    scanf("%[^\n]", nome);
+    scanf(" %[^\n]", nome);
     printf("Digite o codigo unico do produto:\n");
     char id[12];
-    scanf("%[^\n]", id);  
+    scanf(" %[^\n]", id);  
     printf("Digite o preco do produto:\n");
     double preco;
     scanf("%.2lf", &preco);
@@ -47,25 +47,30 @@ void menu_cadastro_produto(cliente *head_c, produto *head_p){
     short qtd;
     scanf("%hd", &qtd); 
 
-    cadastrar_produto(head_p, nome, id, preco, qtd);
-    menu_principal(head_c, head_p);
+    cadastrar_produto(&head_p, nome, id, preco, qtd);
+    
+    return;
 }
 
 void menu_buscar_produto(cliente *head_c, produto *head_p){
     printf("- - - - - - Buscar Produto - - - - - -\n\n");
     printf("Digite o codigo unico do produto:\n");
     char id[12];
-    scanf("%%[^\n]", id);
+    scanf(" %[^\n]", id);
     buscar_produto(head_p, id);
-    menu_principal(head_c, head_p);    
+
+    return;   
 }
 
 void menu_remover_produto(cliente *head_c, produto *head_p){
     printf("- - - - - - Remover Produto - - - - - -\n\n");
     printf("Digite o cpf do produto:\n");
     char id[12];
-    scanf("%%[^\n]", id);
+    scanf(" %[^\n]", id);
     produto *produto_removido = buscar_produto(head_p, id);
-    remover_produtos(head_p, produto_removido);
-    menu_principal(head_c, head_p);    
+    remover_produtos(&head_p, produto_removido);
+
+    return;
 }
+
+//implementar a função editar produto

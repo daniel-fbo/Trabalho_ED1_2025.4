@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void cadastrar_produto(produto *head_p, char *nome, char *id, double preco, short qtd){
+void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd){
     produto *produto_novo;
     produto_novo = malloc (sizeof(produto)); 
     if (produto_novo == NULL){
@@ -13,13 +13,15 @@ void cadastrar_produto(produto *head_p, char *nome, char *id, double preco, shor
         return;
     }
 
+    produto_novo->nome = malloc(strlen(nome) + 1);
+    produto_novo->id = malloc(strlen(id) + 1);
     strcpy(produto_novo->nome,nome);
     strcpy(produto_novo->id,id);
     produto_novo->preco = preco;
     produto_novo->qtd = qtd;
 
-    produto_novo -> prox = head_p -> prox;
-    head_p -> prox = produto_novo;
+    produto_novo -> prox = *head_p;
+    *head_p = produto_novo;
 }
 
 
@@ -70,11 +72,26 @@ void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, do
 }
 
 
-void remover_produtos (produto *head_p, produto *produto_removido){
-    produto *produto_anterior = head_p;
+void remover_produtos (produto **head_p, produto *produto_removido){
+    if(*head_p == NULL || produto_removido == NULL) return;
+
+    if(*head_p == produto_removido){
+        
+        *head_p = produto_removido->prox;
+
+        free(produto_removido->nome);
+        free(produto_removido->id);
+        free(produto_removido);
+
+        return;
+    }
+
+    produto *produto_anterior = *head_p;
     while (produto_anterior->prox != NULL && produto_anterior -> prox != produto_removido){
         produto_anterior = produto_anterior -> prox;
     }
     produto_anterior -> prox = produto_removido -> prox;
+    free (produto_removido->nome);
+    free (produto_removido->id);
     free (produto_removido);
 }
