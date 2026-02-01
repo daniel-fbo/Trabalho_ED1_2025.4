@@ -37,6 +37,7 @@ int main(){
     head_c = c1;
 
     menu_principal(head_c, head_p);
+
     //limpar_memoria();
     return 0;
 }
