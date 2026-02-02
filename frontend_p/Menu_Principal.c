@@ -5,10 +5,12 @@
 #include <string.h>
 #include <time.h>
 
-/* --- to achando q essa função vai ter que receber ponteiro duplo (**) para alterar na memoria o NULL do head_c---*/
+
 void menu_principal(cliente *head_c, produto *head_p){
+
     int opcao = 0;
     while (1){
+        system("cls");
         printf ("- - - - - - Loja Dolphin - - - - - -\n\n");
         printf ("1- Gerenciamento de Clientes.\n");
         printf ("2- Gerenciamento de Produtos.\n");
@@ -16,28 +18,21 @@ void menu_principal(cliente *head_c, produto *head_p){
         printf ("4- Sair do sistema.\n");
         printf("Digite a opcao desejada:\n");
 
+        scanf(" %d", &opcao);
 
-        if (scanf(" %d", &opcao) != 1) {
-            while (getchar() != '\n'); 
-            system("cls");
-            printf("Opcao Invalida!\n");
-            continue;
-        }
-        system("cls");
-        printf("Opcao escolhida: %d\n", opcao);
-         
         switch (opcao)
         {
         case 1:
             menu_gerenciamento_clientes(&head_c,&head_p);
             break;
         case 2:
-            menu_gerenciamento_produtos(head_c,head_p);
+            menu_gerenciamento_produtos(&head_c,&head_p);
             break;
         case 3:
             menu_modo_compra(head_c, head_p);
             break;
         case 4:
+            printf("Saindo do programa...");
             exit(0);
         default:
             printf("Opcao Invalida!\n");

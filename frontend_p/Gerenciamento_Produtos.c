@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-void menu_gerenciamento_produtos(cliente *head_c, produto *head_p){
-    int opcao=-1;
-    while (opcao<1 || opcao>4){
+void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
+
+    int opcao=0;
+    while (1){
+        system("cls");
         printf ("- - - - - - Gerenciamento de Produtos - - - - - -\n\n");
         printf ("1- Cadastrar produto.\n");
         printf ("2- Listar produtos.\n");
@@ -16,23 +18,36 @@ void menu_gerenciamento_produtos(cliente *head_c, produto *head_p){
         printf ("6- Voltar ao menu principal.\n");
         printf("Digite a opcao desejada:\n");
         scanf(" %d", &opcao);
-        if (opcao==6){
+        
+        switch (opcao)
+        {
+        case 1:
+            menu_cadastro_produto(*head_c, head_p);
+            break;
+        case 2:
+            listar_produtos(*head_p);
+            break;
+        case 3:
+            menu_buscar_produto(*head_c, *head_p);
+            break;
+        /* case 4:
+            menu_editar_produto(*head_c, *head_p);
+            break; */
+        case 5:
+            menu_remover_produto(*head_c, head_p);
+            break;
+        case 6:
             return;
-        }
-        if (opcao<1 || opcao>6){
-            system("cls");
-            printf("\033[4;31mOPCAO INVALIDA. DIGITE NOVAMENTE.\033[0m\n\n\n");
+            break;
+        
+        default:
+            printf("Opcao Invalida!\n");
+            break;
         }
     }
-    system("cls");
-    if (opcao==1){menu_cadastro_produto(head_c, head_p);};
-    if (opcao==2){listar_produtos(head_p);};
-    if (opcao==3){menu_buscar_produto(head_c, head_p);};
-    //if (opcao==4){menu_editar_produto(head_c, head_p);};
-    if (opcao==5){menu_remover_produto(head_c, head_p);};
 }
 
-void menu_cadastro_produto(cliente *head_c, produto *head_p){
+void menu_cadastro_produto(cliente *head_c, produto **head_p){
     printf("- - - - - - Cadastro de Produto - - - - - -\n\n");
     printf("Digite o nome do produto:\n");
     char nome[100];
@@ -47,7 +62,7 @@ void menu_cadastro_produto(cliente *head_c, produto *head_p){
     short qtd;
     scanf("%hd", &qtd); 
 
-    cadastrar_produto(&head_p, nome, id, preco, qtd);
+    cadastrar_produto(head_p, nome, id, preco, qtd);
     
     return;
 }
@@ -62,13 +77,13 @@ void menu_buscar_produto(cliente *head_c, produto *head_p){
     return;   
 }
 
-void menu_remover_produto(cliente *head_c, produto *head_p){
+void menu_remover_produto(cliente *head_c, produto **head_p){
     printf("- - - - - - Remover Produto - - - - - -\n\n");
     printf("Digite o cpf do produto:\n");
     char id[12];
     scanf(" %[^\n]", id);
-    produto *produto_removido = buscar_produto(head_p, id);
-    remover_produtos(&head_p, produto_removido);
+    produto *produto_removido = buscar_produto(*head_p, id);
+    remover_produtos(head_p, produto_removido);
 
     return;
 }
