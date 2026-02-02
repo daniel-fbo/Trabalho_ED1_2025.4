@@ -20,14 +20,15 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
     char cpf_digitado[12];
     printf("Digite o CPF para comprar:\n");
     scanf(" %[^\n]",cpf_digitado);
-    while (getchar() != '\n');
+    //while (getchar() != '\n');
 
-    encontrado = buscar_cliente(head_c,cpf_digitado);
+    encontrado = buscar_cliente(head_c,cpf_digitado); 
+    
+    if( encontrado != NULL){
 
-    if(encontrado != NULL){
-        printf("Cliente encontrado: %s\n", encontrado->nome);
+        printf("Ola, %s\n", encontrado->nome);
 
-        printf("\n\n-------- LISTA DOS PRODUTOS --------\n\n");
+        printf("\n-------- LISTA DOS PRODUTOS --------\n");
         listar_produtos(head_p);
 
     } else printf("Cliente nao cadastrado\n");

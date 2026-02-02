@@ -30,15 +30,34 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
 }
 
 void listar_clientes(cliente *head_c){
+    
     cliente *temp_cliente = head_c;
+
+    if(head_c == NULL){
+        printf(" ==============================================\n");
+        printf(" Nao ha clientes cadastrados\n");
+        printf(" Pressione qualquer tecla para voltar...\n");
+        printf(" ==============================================\n");
+        while (getchar() != '\n'); getchar();
+        return;      
+    }
+
     while (temp_cliente != NULL){
+        printf(" ==============================================\n");
         printf("Nome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
-        printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
-        printf("Email: %s\n\n\n\n", temp_cliente -> email);
-        printf("Data de nascimento: %hd/%hd/%d\n\n\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+        printf("Telefone: %s\n", temp_cliente -> telefone);
+        printf("Email: %s\n", temp_cliente -> email);
+        printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+        printf(" ==============================================\n");
+
         temp_cliente = temp_cliente -> prox;        
     } 
+
+    printf(" Pressione qualquer tecla para voltar...\n");
+    printf(" ==============================================\n");
+    while (getchar() != '\n'); getchar();
+    return;
 }
 
 
@@ -51,9 +70,9 @@ cliente *buscar_cliente(cliente *head_c, char *cpf){
         if (temp_cliente->cpf != NULL && strcmp(temp_cliente->cpf, cpf) == 0){
         printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
-        printf("Telefone: %s\n\n\n\n", temp_cliente -> telefone);
-        printf("Email: %s\n\n\n\n", temp_cliente -> email);
-        printf("Data de nascimento: %hd/%hd/%d\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+        printf("Telefone: %s\n", temp_cliente -> telefone);
+        printf("Email: %s\n", temp_cliente -> email);
+        printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
             return temp_cliente;
         }
         temp_cliente = temp_cliente -> prox;        
