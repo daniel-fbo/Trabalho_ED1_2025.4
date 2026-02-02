@@ -1,5 +1,5 @@
 #include "frontend.h"
-#include "backend.h"
+#include "backend_p/backend.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,9 +27,8 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
     if(encontrado != NULL){
         system("cls");
         int opcao = 0;
-        printf("Ola, %s\n", encontrado->nome);
 
-        printf("\n-------- MODO COMPRA --------\n");
+        printf("\n--- MODO COMPRA --> Perfil (%s) <-----\n", encontrado->nome);
         printf(" 1 - Listar Produtos\n");
         printf(" 2 - Adicionar no Carrinho\n");
         printf(" 3 - Ver carrinho\n");

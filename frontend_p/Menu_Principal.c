@@ -1,4 +1,4 @@
-#include "frontend_p/frontend.h"
+#include "frontend.h"
 
 #include <stdio.h>
 #include <stdlib.h>

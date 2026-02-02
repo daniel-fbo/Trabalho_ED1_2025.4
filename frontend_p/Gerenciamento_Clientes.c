@@ -101,10 +101,6 @@ void menu_buscar_cliente(cliente *head_c, produto *head_p){
     return;  
 }
 
- 
-void menu_remover_cliente(cliente *head_c, produto *head_p){
-
-
 void menu_remover_cliente(cliente **head_c, produto *head_p){
     system("cls");
 

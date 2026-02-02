@@ -3,19 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-<<<<<<< HEAD
- 
-void menu_gerenciamento_produtos(cliente *head_c, produto *head_p){
-    int opcao=-1;
-    while (opcao<1 || opcao>4){
-=======
 
 void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
 
     int opcao=0;
     while (1){
         system("cls");
->>>>>>> 8b7fb906d5586abb3f9830470fab940e613d80e4
         printf ("- - - - - - Gerenciamento de Produtos - - - - - -\n\n");
         printf ("1- Cadastrar produto.\n");
         printf ("2- Listar produtos.\n");
