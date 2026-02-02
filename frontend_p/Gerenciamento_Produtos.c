@@ -48,23 +48,38 @@ void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
 }
 
 void menu_cadastro_produto(cliente *head_c, produto **head_p){
-    printf("- - - - - - Cadastro de Produto - - - - - -\n\n");
-    printf("Digite o nome do produto:\n");
-    char nome[100];
-    scanf(" %[^\n]", nome);
-    printf("Digite o codigo unico do produto:\n");
-    char id[12];
-    scanf(" %[^\n]", id);  
-    printf("Digite o preco do produto:\n");
-    double preco;
-    scanf("%.2lf", &preco);
-    printf("Digite a quantidade de itens em estoque do produto:\n");
-    short qtd;
-    scanf("%hd", &qtd); 
 
-    cadastrar_produto(head_p, nome, id, preco, qtd);
+    produto *produto = malloc(sizeof(produto));
+
+    if (produto == NULL){
+        printf("\033[4;31mCadastro não pode ser concluído.\033[0m Tecle Enter para voltar.!");
+        getchar();
+        return;
+    } else {
+        system("cls");
+
+        produto->nome = malloc(100);
+        produto->id = malloc(12);
+
+        printf("- - - - - - Cadastro de Produto - - - - - -\n\n");
+        printf("Digite o nome do produto:\n");
+        scanf(" %[^\n]", produto->nome);
+        printf("Digite o codigo unico do produto:\n");
+        scanf(" %[^\n]", produto->id);  
+        printf("Digite o preco do produto:\n");
+        scanf(" %lf", &produto->preco);
+        printf("Digite a quantidade de itens em estoque do produto:\n");
+        scanf(" %hd", &produto->qtd); 
+
+        cadastrar_produto(head_p, produto->nome, produto->id, produto->preco, produto->qtd);
+        printf("Produto Cadastrado!\n");
+        printf("Pressione qualquer tecla para voltar...");
+        while (getchar() != '\n'); getchar();
+
+        return;
+    }
+
     
-    return;
 }
 
 void menu_buscar_produto(cliente *head_c, produto *head_p){
@@ -79,7 +94,7 @@ void menu_buscar_produto(cliente *head_c, produto *head_p){
 
 void menu_remover_produto(cliente *head_c, produto **head_p){
     printf("- - - - - - Remover Produto - - - - - -\n\n");
-    printf("Digite o cpf do produto:\n");
+    printf("Digite o codigo unico do produto:\n");
     char id[12];
     scanf(" %[^\n]", id);
     produto *produto_removido = buscar_produto(*head_p, id);

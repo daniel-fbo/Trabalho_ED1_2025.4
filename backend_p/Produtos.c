@@ -7,11 +7,6 @@
 void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd){
     produto *produto_novo;
     produto_novo = malloc (sizeof(produto)); 
-    if (produto_novo == NULL){
-        printf("\033[4;31mCadastro não pode ser concluído.\033[0m Tecle Enter para voltar.!");
-        getchar();
-        return;
-    }
 
     produto_novo->nome = malloc(strlen(nome) + 1);
     produto_novo->id = malloc(strlen(id) + 1);
@@ -22,6 +17,8 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
 
     produto_novo -> prox = *head_p;
     *head_p = produto_novo;
+
+    return;
 }
 
 

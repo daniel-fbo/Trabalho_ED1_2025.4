@@ -25,15 +25,16 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
     encontrado = buscar_cliente(head_c,cpf_digitado); 
     
     if(encontrado != NULL){
+        system("cls");
         int opcao = 0;
         printf("Ola, %s\n", encontrado->nome);
 
-        printf("\n-------- ============= --------\n");
-        printf(" 1 - Listar Produtos");
-        printf(" 2 - Adicionar no Carrinho");
-        printf(" 3 - Ver carrinho");
-        printf(" 4 - Retirar do carrinho");
-        printf(" 5 - Voltar ao Menu Principal");
+        printf("\n-------- MODO COMPRA --------\n");
+        printf(" 1 - Listar Produtos\n");
+        printf(" 2 - Adicionar no Carrinho\n");
+        printf(" 3 - Ver carrinho\n");
+        printf(" 4 - Retirar do carrinho\n");
+        printf(" 5 - Voltar ao Menu Principal\n");
         scanf(" %d", &opcao);
 
         switch (opcao)
