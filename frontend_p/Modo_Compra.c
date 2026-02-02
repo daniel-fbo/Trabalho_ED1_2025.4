@@ -34,6 +34,7 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
         printf(" 3 - Ver carrinho\n");
         printf(" 4 - Retirar do carrinho\n");
         printf(" 5 - Voltar ao Menu Principal\n");
+        printf("Digite uma opcao: \n");
         scanf(" %d", &opcao);
 
         switch (opcao)
@@ -43,7 +44,6 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
         case 2:
             menu_adicionar_carrinho(head_c,head_p);
             break;
-            break;
         case 3:
             menu_mostrar_carrinho(head_c,head_p);
             break;
@@ -51,11 +51,18 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
             menu_retirar_carrinho(head_c,head_p);
             break;
         case 5:
+            system("cls");
             return;
-
+            break;
         default:
             printf("Opcao invalida");
             break;
         }
-    } else printf("Cliente nao encontrado");
+    } else{
+        system("cls");
+        printf("Cliente nao encontrado\n");
+        printf("Pressione qualquer tecla para voltar...");
+        while (getchar() != '\n'); getchar();
+        return;
+    } 
 }

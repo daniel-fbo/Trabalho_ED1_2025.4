@@ -37,6 +37,7 @@ void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
             menu_remover_cliente(head_c, *head_p);
             break;
         case 6:
+            system("cls");
             return;
             break;
         default:
@@ -75,12 +76,11 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     data_nascimento -> dia = dia;
     data_nascimento -> mes = mes;
     data_nascimento -> ano = ano;
-
-    printf("\nCliente cadastrado com sucesso!\n");
-    printf("Pressione uma tecla para sair");
-    getchar();
     
     cadastrar_cliente(head_c, cliente->nome, cliente->cpf, cliente->telefone, cliente->email, data_nascimento);
+    printf("Cliente Cadastrado!\n");
+    printf("Pressione qualquer tecla para voltar...");
+    while (getchar() != '\n'); getchar();
 
     return;
 }

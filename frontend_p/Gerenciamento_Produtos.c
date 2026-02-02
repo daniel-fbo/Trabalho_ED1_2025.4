@@ -37,9 +37,8 @@ void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
             menu_remover_produto(*head_c, head_p);
             break;
         case 6:
+            system("cls");
             return;
-            break;
-        
         default:
             printf("Opcao Invalida!\n");
             break;
