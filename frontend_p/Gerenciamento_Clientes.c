@@ -1,14 +1,9 @@
 #include "frontend.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
  
 //talvez com ponteiro duplo para alterar
 void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
-    int opcao=0;
-    while (1){
-        system("cls");
+    int opcao;
+    while (SIM){
         printf ("- - - - - - Gerenciamento de Clientes - - - - - -\n\n");
         printf ("1- Cadastrar cliente.\n");
         printf ("2- Listar clientes.\n");

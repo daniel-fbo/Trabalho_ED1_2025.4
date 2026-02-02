@@ -1,14 +1,8 @@
 #include "frontend.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-
 void menu_principal(cliente *head_c, produto *head_p){
     int opcao;
-    while (1){
+    while (SIM){
         printf ("- - - - - - Loja Dolphin - - - - - -\n\n");
         printf ("1- Gerenciamento de Clientes.\n");
         printf ("2- Gerenciamento de Produtos.\n");
@@ -30,10 +24,11 @@ void menu_principal(cliente *head_c, produto *head_p){
             menu_modo_compra(head_c, head_p);
             break;
         case 4:
-            printf("Saindo do programa...");
-            exit(0);
+            printf(VERDE "Saindo do programa...");
+            exit(EXIT_SUCCESS);
         default:
-            printf("Opcao Invalida!\n");
+            system("cls");
+            printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
         } 
     } 
 }

@@ -1,11 +1,13 @@
 #include "backend.h"
 
 void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento){
+    carrinho *novo_carrinho = malloc(sizeof(carrinho));
+    novo_carrinho -> prox = NULL;
     
     cliente *cliente_novo = malloc (sizeof(cliente));
 
     if (cliente_novo == NULL){
-        printf("\033[4;31mCadastro não pode ser concluído.\033[0m Tecle Enter para voltar.!");
+        printf(VERMELHO"Cadastro não pode ser concluído. Tecle Enter para voltar.!"BRANCO);
         getchar();
         return;
     }
@@ -20,6 +22,7 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
     strcpy(cliente_novo->telefone,telefone);
     strcpy(cliente_novo->email,email);
     cliente_novo->data_nascimento = data_nascimento;
+    cliente_novo->carrinho = novo_carrinho;
 
     cliente_novo -> prox = *head_c;
     *head_c  = cliente_novo;
@@ -30,28 +33,28 @@ void listar_clientes(cliente *head_c){
     cliente *temp_cliente = head_c;
 
     if(head_c == NULL){
-        printf(" ==============================================\n");
+        printf(VERDE" ==============================================\n"BRANCO);
         printf(" Nao ha clientes cadastrados\n");
         printf(" Pressione qualquer tecla para voltar...\n");
-        printf(" ==============================================\n");
+        printf(VERDE " ==============================================\n" BRANCO);
         while (getchar() != '\n'); getchar();
         return;      
     }
 
     while (temp_cliente != NULL){
-        printf(" ==============================================\n");
+        printf(VERDE" ==============================================\n"BRANCO);
         printf("Nome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
         printf("Telefone: %s\n", temp_cliente -> telefone);
         printf("Email: %s\n", temp_cliente -> email);
         printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
-        printf(" ==============================================\n");
+        printf(VERDE" ==============================================\n"BRANCO);
 
         temp_cliente = temp_cliente -> prox;        
     } 
 
     printf(" Pressione qualquer tecla para voltar...\n");
-    printf(" ==============================================\n");
+    printf(VERDE" ==============================================\n"BRANCO);
     while (getchar() != '\n'); getchar();
     return;
 }

@@ -1,9 +1,14 @@
 #pragma once
 
-
 #include <stdlib.h> 
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+
+#define VERMELHO "\033[31m"
+#define VERDE "\033[32m"
+#define BRANCO "\033[0m"
+#define SIM true 
 
 typedef struct Data{
     short dia;
@@ -12,7 +17,6 @@ typedef struct Data{
 } data;
 
 typedef struct Carrinho {
-    struct Cliente *cliente;
     struct Produto *prox;
 } carrinho;
 
@@ -22,6 +26,7 @@ typedef struct Cliente {
     char *telefone;
     char *email;
     data *data_nascimento;
+    carrinho *carrinho;
     struct Cliente *prox;
 } cliente;
 
@@ -37,15 +42,16 @@ typedef struct Produto {
 void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento);
 void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd);
 
-void listar_clientes(cliente *head_c);
-void listar_produtos (produto *head_p);
+
+void remover_clientes(cliente **head_c, cliente *cliente_removido);
+void remover_produtos (produto **head_p, produto *produto_removido);
 
 
 cliente *buscar_cliente(cliente *head_c, char *cpf);
 produto *buscar_produto(produto *head_p, char *id);
 
+void listar_clientes(cliente *head_c);
+void listar_produtos (produto *head_p);
+
 void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, char *novo_telefone, char *novo_email, data *nova_data_nascimento, short opcao);
 void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, double novo_preco, short nova_qtd, short opcao);
-
-void remover_clientes(cliente **head_c, cliente *cliente_removido);
-void remover_produtos (produto **head_p, produto *produto_removido);

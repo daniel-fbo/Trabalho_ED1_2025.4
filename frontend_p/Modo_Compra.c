@@ -1,9 +1,4 @@
 #include "frontend.h"
-#include "backend_p/backend.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 void menu_modo_compra(cliente *head_c,produto *head_p){
     system("cls");

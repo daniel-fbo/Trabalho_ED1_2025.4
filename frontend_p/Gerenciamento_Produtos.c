@@ -1,9 +1,5 @@
 #include "frontend.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
 
     int opcao=0;
