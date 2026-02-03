@@ -17,6 +17,29 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
     return;
 }
 
+void remover_produtos (produto **head_p, produto *produto_removido){
+    if(*head_p == NULL || produto_removido == NULL) return;
+
+    if(*head_p == produto_removido){
+        
+        *head_p = produto_removido->prox;
+
+        free(produto_removido->nome);
+        free(produto_removido->id);
+        free(produto_removido);
+
+        return;
+    }
+
+    produto *produto_anterior = *head_p;
+    while (produto_anterior->prox != NULL && produto_anterior -> prox != produto_removido){
+        produto_anterior = produto_anterior -> prox;
+    }
+    produto_anterior -> prox = produto_removido -> prox;
+    free (produto_removido->nome);
+    free (produto_removido->id);
+    free (produto_removido);
+}
 
 void listar_produtos (produto *head_p){
     produto *temp_produto = head_p;
@@ -65,26 +88,3 @@ void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, do
 }
 
 
-void remover_produtos (produto **head_p, produto *produto_removido){
-    if(*head_p == NULL || produto_removido == NULL) return;
-
-    if(*head_p == produto_removido){
-        
-        *head_p = produto_removido->prox;
-
-        free(produto_removido->nome);
-        free(produto_removido->id);
-        free(produto_removido);
-
-        return;
-    }
-
-    produto *produto_anterior = *head_p;
-    while (produto_anterior->prox != NULL && produto_anterior -> prox != produto_removido){
-        produto_anterior = produto_anterior -> prox;
-    }
-    produto_anterior -> prox = produto_removido -> prox;
-    free (produto_removido->nome);
-    free (produto_removido->id);
-    free (produto_removido);
-}

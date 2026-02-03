@@ -38,7 +38,8 @@ void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
             system("cls");
             return;
         default:
-            printf("Opcao Invalida!\n");
+            system("cls");
+            printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
             break;
         }
     }
@@ -98,29 +99,25 @@ void menu_remover_cliente(cliente **head_c, produto *head_p){
 
     char cpf[12];
     scanf(" %[^\n]", cpf);
-
     cliente *cliente_removido = buscar_cliente(*head_c, cpf);
-
     remover_clientes(head_c, cliente_removido);
-   
     return; 
 }
 
 void menu_editar_cliente(cliente *head_c, produto *head_p){
-    char 
-    printf("- - - - - - Buscar Cliente - - - - - -\n\n");
-    printf("Digite o cpf do cliente:\n");
+
+    printf("- - - - - - Editar Cliente - - - - - -\n\n");
+    printf("Digite o cpf do cliente a ser editado:\n");
 
     char cpf[12];
     scanf(" %[^\n]", cpf);
     cliente *temp_cliente = buscar_cliente(head_c, cpf);
 
-
     printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
     printf("CPF: %s\n", temp_cliente -> cpf);
     printf("Telefone: %s\n", temp_cliente -> telefone);
     printf("Email: %s\n", temp_cliente -> email);
-    printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+    printf("Data de nascimento: %hd/%hd/%d\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
 
 
     int opcao;
@@ -131,18 +128,43 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
         printf ("4- Editar email.\n");
         printf ("5- Editar data de nascimento.\n");
         printf("Digite a opcao desejada:\n");
-
         scanf(" %d", &opcao);
 
-        if (opcao>6 || opcao <1){
-            system("cls");
-            printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
-        } else{
-            editar_cliente();
-            break;
-        }
-    } 
+        switch(opcao){
+            case 1:
+                printf("Qual o novo nome?\n");
+                scanf("%[^\n]", temp_cliente ->nome);
+                break;
+            case 2:
+                printf("Qual o novo cpf?\n");
+                scanf("%[^\n]", temp_cliente -> cpf);
+                break;
+            case 3:
+                printf("Qual o novo telefone?\n");
+                scanf("%[^\n]", temp_cliente -> telefone);
+                break;
+            case 4:
+                printf("Qual o novo email?\n");
+                scanf("%[^\n]", temp_cliente -> email);
+                break;
+            case 5:
+                printf("Digite a data de nascimento do cliente (formato DD/MM/AAAA):\n");
+                short dia, mes;
+                int ano;
+                scanf("%hd/%hd/%d", &dia, &mes, &ano);
 
+                temp_cliente -> data_nascimento-> dia = dia;
+                temp_cliente -> data_nascimento-> mes = mes;
+                temp_cliente -> data_nascimento-> ano = ano;
+
+            default:
+                system("cls");
+                printf(VERDE"Opcao invalida! Digite novamente.\n\n"BRANCO);
+                break;
+        } 
+    }
+
+    editar_cliente(temp_cliente, temp_cliente -> nome, temp_cliente -> cpf, temp_cliente -> telefone, temp_cliente -> email, temp_cliente -> data_nascimento, opcao);
     return;  
 }
 
