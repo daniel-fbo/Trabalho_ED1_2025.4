@@ -1,15 +1,14 @@
 #include "frontend.h"
- 
-//talvez com ponteiro duplo para alterar
+
 void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
     int opcao;
     while (SIM){
         printf ("- - - - - - Gerenciamento de Clientes - - - - - -\n\n");
         printf ("1- Cadastrar cliente.\n");
-        printf ("2- Listar clientes.\n");
-        printf ("3- Buscar cliente pelo CPF.\n");
-        printf ("4- Editar dados de um cliente.\n");
-        printf ("5- Remover cliente.\n");
+        printf ("2- Remover cliente.\n");
+        printf ("3- Listar clientes.\n");
+        printf ("4- Buscar cliente pelo CPF.\n");
+        printf ("5- Editar dados de um cliente.\n");
         printf ("6- Voltar ao menu principal.\n");
         printf("Digite a opcao desejada:\n");
         scanf(" %d", &opcao);
@@ -17,24 +16,27 @@ void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
         switch (opcao)
         {
         case 1:
+            system("cls");          
             menu_cadastro_cliente(head_c, *head_p);
             break;
         case 2:
-            listar_clientes(*head_c);
-            break;
-        case 3:
-            menu_buscar_cliente(*head_c, *head_p);
-            break;
-        /* case 4:
-            menu_editar_cliente(*head_c, *head_p);
-            break; */
-        case 5:
+            system("cls"); 
             menu_remover_cliente(head_c, *head_p);
             break;
+        case 3:
+            listar_clientes(*head_c);
+            break;
+        case 4:
+            system("cls"); 
+            menu_buscar_cliente(*head_c, *head_p);
+            break;
+        case 5:
+            system("cls"); 
+            menu_editar_cliente(*head_c, *head_p);
+            break; 
         case 6:
             system("cls");
             return;
-            break;
         default:
             printf("Opcao Invalida!\n");
             break;
@@ -42,64 +44,55 @@ void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
     }
 }
 
-
 void menu_cadastro_cliente(cliente **head_c, produto *head_p){
-    system("cls");
-    cliente *cliente = malloc(sizeof(cliente));
-
-    cliente->nome = malloc(50);
-    cliente->cpf = malloc(12);
-    cliente->telefone = malloc(12);
-    cliente->email = malloc(60);
-
-    data *data_nascimento = malloc(sizeof(data));
+    char nome[100], cpf[12], telefone[12], email[50];
+    short dia, mes; int ano;
 
     printf("- - - - - - Cadastro de Cliente - - - - - -\n\n");
     printf("Digite o nome do cliente:\n");
-    scanf(" %[^\n]", cliente->nome);
+    scanf(" %[^\n]", nome);
     printf("Digite o CPF do cliente:\n");
-    scanf(" %[^\n]", cliente->cpf);  
+    scanf(" %[^\n]", cpf);  
     printf("Digite o telefone do cliente:\n");
-    scanf(" %[^\n]", cliente->telefone);
+    scanf(" %[^\n]", telefone);
     printf("Digite o email do cliente:\n");
-    scanf(" %[^\n]", cliente->email); 
+    scanf(" %[^\n]", email); 
     printf("Digite a data de nascimento do cliente (formato DD/MM/AAAA):\n");
     short dia, mes;
     int ano;
     scanf("%hd/%hd/%d", &dia, &mes, &ano);
-    
-    data_nascimento -> dia = dia;
-    data_nascimento -> mes = mes;
-    data_nascimento -> ano = ano;
-    
-    cadastrar_cliente(head_c, cliente->nome, cliente->cpf, cliente->telefone, cliente->email, data_nascimento);
-    printf("Cliente Cadastrado!\n");
-    printf("Pressione qualquer tecla para voltar...");
-    while (getchar() != '\n'); getchar();
 
+    data *data_nascimento = malloc(sizeof(data));
+    data_nascimento->dia = dia;
+    data_nascimento->mes = mes;
+    data_nascimento->ano = ano;
+
+    cadastrar_cliente(head_c, nome, cpf, telefone, email, data_nascimento);
     return;
 }
 
-
-
 void menu_buscar_cliente(cliente *head_c, produto *head_p){
-    system("cls");
-
     printf("- - - - - - Buscar Cliente - - - - - -\n\n");
     printf("Digite o cpf do cliente:\n");
 
     char cpf[12];
     scanf(" %[^\n]", cpf);
 
-    buscar_cliente(head_c, cpf);
-  
+    cliente *temp_cliente = buscar_cliente(head_c, cpf);
+
+    printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
+    printf("CPF: %s\n", temp_cliente -> cpf);
+    printf("Telefone: %s\n", temp_cliente -> telefone);
+    printf("Email: %s\n", temp_cliente -> email);
+    printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+
+    printf("Pressione qualquer tecla para voltar...");
+    while (getchar() != '\n'); getchar();
+
     return;  
 }
 
 void menu_remover_cliente(cliente **head_c, produto *head_p){
-    system("cls");
-
-
     printf("- - - - - - Remover Cliente - - - - - -\n\n");
     printf("Digite o cpf do cliente:\n");
 
@@ -113,4 +106,44 @@ void menu_remover_cliente(cliente **head_c, produto *head_p){
     return; 
 }
 
-//implementar a função editar cliente
+void menu_editar_cliente(cliente *head_c, produto *head_p){
+    char 
+    printf("- - - - - - Buscar Cliente - - - - - -\n\n");
+    printf("Digite o cpf do cliente:\n");
+
+    char cpf[12];
+    scanf(" %[^\n]", cpf);
+    cliente *temp_cliente = buscar_cliente(head_c, cpf);
+
+
+    printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
+    printf("CPF: %s\n", temp_cliente -> cpf);
+    printf("Telefone: %s\n", temp_cliente -> telefone);
+    printf("Email: %s\n", temp_cliente -> email);
+    printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+
+
+    int opcao;
+    while (SIM){
+        printf ("1- Editar nome.\n");
+        printf ("2- Editar cpf.\n");
+        printf ("3- Editar telefone.\n");
+        printf ("4- Editar email.\n");
+        printf ("5- Editar data de nascimento.\n");
+        printf("Digite a opcao desejada:\n");
+
+        scanf(" %d", &opcao);
+
+        if (opcao>6 || opcao <1){
+            system("cls");
+            printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
+        } else{
+            editar_cliente();
+            break;
+        }
+    } 
+
+    return;  
+}
+
+
