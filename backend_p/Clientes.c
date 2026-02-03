@@ -2,7 +2,7 @@
 
 void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento){
     carrinho *novo_carrinho = malloc(sizeof(carrinho));
-    novo_carrinho -> prox = NULL;
+    novo_carrinho -> itens = NULL;
     
     cliente *cliente_novo = malloc (sizeof(cliente));
 

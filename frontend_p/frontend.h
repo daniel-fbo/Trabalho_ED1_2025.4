@@ -24,3 +24,6 @@ void menu_modo_compra(cliente *head_c, produto *head_p);
 void menu_adicionar_carrinho(cliente *head_c, produto *head_p);
 void menu_retirar_carrinho(cliente *head_c, produto *head_p);
 void menu_mostrar_carrinho(cliente *head_c, produto *head_p);
+void adicionar_carrinho(cliente *head_c, produto *head_p, char *id, int qtd);
+void listar_itens_carrinho(cliente *head_c, produto *head_p);
+void retirar_carrinho(cliente *head_c, produto *head_p, char *id, int qtd);

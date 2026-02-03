@@ -16,8 +16,14 @@ typedef struct Data{
     int ano;
 } data;
 
+typedef struct ItemCarrinho{
+    produto *produto;
+    int qtd;
+    struct ItemCarrinho *prox;
+}itemcarrinho;
+
 typedef struct Carrinho {
-    struct Produto *prox;
+    itemcarrinho *itens;
 } carrinho;
 
 typedef struct Cliente { 
