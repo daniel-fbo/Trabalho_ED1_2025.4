@@ -15,19 +15,21 @@ void menu_principal(cliente *head_c, produto *head_p){
         switch (opcao)
         {
         case 1:
+            system("cls");
             menu_gerenciamento_clientes(&head_c,&head_p);
             break;
         case 2:
+            system("cls");
             menu_gerenciamento_produtos(&head_c,&head_p);
             break;
         case 3:
+            system("cls");
             menu_modo_compra(head_c, head_p);
             break;
         case 4:
             printf(VERDE "Saindo do programa...");
             exit(EXIT_SUCCESS);
         default:
-            system("cls");
             printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
         } 
     } 
