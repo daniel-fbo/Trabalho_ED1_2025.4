@@ -33,6 +33,36 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
 
 }
 
+void remover_clientes(cliente **head_c, cliente *cliente_removido){
+
+    //analisar se retiro esse
+    /* cliente *cliente_anterior = head_c;
+    while (cliente_anterior->prox != NULL && cliente_anterior -> prox != cliente_removido){
+        cliente_anterior = cliente_anterior -> prox;
+    }
+    cliente_anterior -> prox = cliente_removido -> prox;
+    free (cliente_removido); */
+
+    if (*head_c == cliente_removido) {
+        *head_c = cliente_removido->prox;
+        printf(VERDE"Cliente removido com sucesso!\n"BRANCO);
+        free(cliente_removido);
+        return;
+    }
+
+    cliente *atual = *head_c;
+    while (atual->prox && atual->prox != cliente_removido){
+        atual = atual->prox;
+    }
+
+    if (atual->prox) {
+        atual->prox = cliente_removido->prox;
+        printf(VERDE"Cliente removido com sucesso!\n"BRANCO);
+        free(cliente_removido);
+    }
+}
+
+
 void listar_clientes(cliente *head_c){
     
     cliente *temp_cliente = head_c;
@@ -118,28 +148,3 @@ return;
 }
 
 
-void remover_clientes(cliente **head_c, cliente *cliente_removido){
-
-    //analisar se retiro esse
-    /* cliente *cliente_anterior = head_c;
-    while (cliente_anterior->prox != NULL && cliente_anterior -> prox != cliente_removido){
-        cliente_anterior = cliente_anterior -> prox;
-    }
-    cliente_anterior -> prox = cliente_removido -> prox;
-    free (cliente_removido); */
-
-    if (*head_c == cliente_removido) {
-        *head_c = cliente_removido->prox;
-        free(cliente_removido);
-        return;
-    }
-
-    cliente *atual = *head_c;
-    while (atual->prox && atual->prox != cliente_removido)
-        atual = atual->prox;
-
-    if (atual->prox) {
-        atual->prox = cliente_removido->prox;
-        free(cliente_removido);
-    }
-}
