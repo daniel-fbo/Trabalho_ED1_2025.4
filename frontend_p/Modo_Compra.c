@@ -2,12 +2,13 @@
 
 void menu_modo_compra(cliente *head_c,produto *head_p){
     system("cls");
-    printf("--- MODO COMPRA ---\n");
+    printf(ROXO"--- MODO COMPRA ---\n\n"BRANCO);
 
     if(head_c == NULL) {
-        printf("Erro: Nao ha clientes cadastrados!\n");
-        printf("Pressione qualquer tecla para voltar...");
+        printf(VERMELHO"Erro: Nao ha clientes cadastrados no momento!\n\n"BRANCO);
+        printf("Pressione qualquer tecla para voltar ao menu principal.\n");
         while (getchar() != '\n'); getchar();
+        system("cls");
         return;
     }
 

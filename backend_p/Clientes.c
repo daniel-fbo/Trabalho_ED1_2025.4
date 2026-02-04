@@ -7,8 +7,9 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
     cliente *cliente_novo = malloc (sizeof(cliente));
 
     if (cliente_novo == NULL){
-        printf(VERMELHO"Cadastro não pode ser concluído. Tecle Enter para voltar.!"BRANCO);
-        getchar();
+        printf(VERMELHO"Erro: Cadastro não pode ser concluído. Pressione qualquer tecla para voltar.!\n"BRANCO);
+        printf("Pressione qualquer tecla para voltar.\n");
+        while (getchar() != '\n'); getchar();
         return;
     }
 
@@ -26,70 +27,75 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
 
     cliente_novo -> prox = *head_c;
     *head_c  = cliente_novo;
-
-    printf(VERDE"Cliente Cadastrado!\n"BRANCO);
-    printf("Pressione qualquer tecla para voltar...");
+    system("cls");
+    printf(VERDE"Cliente cadastrado com sucesso!\n\n"BRANCO);
+    printf("Pressione qualquer tecla para voltar.\n");
     while (getchar() != '\n'); getchar();
-
+    system("cls");
 }
 
-void remover_clientes(cliente **head_c, cliente *cliente_removido){
-
-    //analisar se retiro esse
-    /* cliente *cliente_anterior = head_c;
-    while (cliente_anterior->prox != NULL && cliente_anterior -> prox != cliente_removido){
-        cliente_anterior = cliente_anterior -> prox;
-    }
-    cliente_anterior -> prox = cliente_removido -> prox;
-    free (cliente_removido); */
-
-    if (*head_c == cliente_removido) {
-        *head_c = cliente_removido->prox;
-        printf(VERDE"Cliente removido com sucesso!\n"BRANCO);
-        free(cliente_removido);
+void remover_clientes(cliente **head_c, cliente *cliente_removido) {
+    if (*head_c == NULL || cliente_removido == NULL) {
+        printf(VERMELHO"Erro: Cliente nao encontrado na lista.\n"BRANCO);
+        printf("Pressione qualquer tecla para voltar.\n");
+        while (getchar() != '\n'); getchar();
         return;
     }
-
-    cliente *atual = *head_c;
-    while (atual->prox && atual->prox != cliente_removido){
-        atual = atual->prox;
+    
+    if (*head_c == cliente_removido) {
+        *head_c = cliente_removido->prox;
+    } 
+    else {
+        cliente *atual = *head_c;
+        while (atual->prox != NULL && atual->prox != cliente_removido) {
+            atual = atual->prox;
+        }
+        if (atual->prox == cliente_removido) {
+            atual->prox = cliente_removido->prox;
+        } else {
+            printf(VERMELHO"Erro: Cliente nao encontrado na lista.\n"BRANCO);
+            return;
+        }
     }
 
-    if (atual->prox) {
-        atual->prox = cliente_removido->prox;
-        printf(VERDE"Cliente removido com sucesso!\n"BRANCO);
-        free(cliente_removido);
-    }
+    free(cliente_removido);
+    
+    printf(VERDE "Cliente removido com sucesso!\n" BRANCO);
+    printf("Pressione qualquer tecla para voltar.\n");
+    while (getchar() != '\n'); getchar();
+    system("cls");
+    return;
 }
 
 
 void listar_clientes(cliente *head_c){
+    system("cls");
+    printf(ROXO"- - - - - - Lista de Clientes - - - - - -\n\n"BRANCO);
     
     cliente *temp_cliente = head_c;
 
     if(head_c == NULL){
-        printf(VERDE" ==============================================\n"BRANCO);
-        printf(" Nao ha clientes cadastrados\n");
-        printf(" Pressione qualquer tecla para voltar...\n");
-        printf(VERDE " ==============================================\n" BRANCO);
+        system("cls");
+        printf(VERMELHO"Erro: Nao ha clientes cadastrados\n\n"BRANCO);
+        printf("Pressione qualquer tecla para voltar.\n");
         while (getchar() != '\n'); getchar();
+        system("cls");
         return;      
     }
 
     while (temp_cliente != NULL){
-        printf(VERDE" ==============================================\n"BRANCO);
         printf("Nome do cliente: %s\n", temp_cliente -> nome);
         printf("CPF: %s\n", temp_cliente -> cpf);
         printf("Telefone: %s\n", temp_cliente -> telefone);
         printf("Email: %s\n", temp_cliente -> email);
-        printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
-        printf(VERDE" ==============================================\n"BRANCO);
-
+        printf("Data de nascimento: %02hd/%02hd/%04d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
+        printf("\n\n");
         temp_cliente = temp_cliente -> prox;        
     } 
 
-    printf(" Pressione qualquer tecla para voltar...\n");;
+    printf("Pressione qualquer tecla para voltar.\n");
     while (getchar() != '\n'); getchar();
+    system("cls");
     return;
 }
 

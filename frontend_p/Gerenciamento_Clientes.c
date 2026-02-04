@@ -3,13 +3,13 @@
 void menu_gerenciamento_clientes(cliente **head_c, produto **head_p){
     int opcao;
     while (SIM){
-        printf ("- - - - - - Gerenciamento de Clientes - - - - - -\n\n");
+        printf (ROXO"- - - - - - Gerenciamento de Clientes - - - - - -\n\n"BRANCO);
         printf ("1- Cadastrar cliente.\n");
         printf ("2- Remover cliente.\n");
         printf ("3- Listar clientes.\n");
         printf ("4- Buscar cliente pelo CPF.\n");
         printf ("5- Editar dados de um cliente.\n");
-        printf ("6- Voltar ao menu principal.\n");
+        printf ("6- Voltar ao menu principal.\n\n");
         printf("Digite a opcao desejada:\n");
         scanf(" %d", &opcao);
         
@@ -49,7 +49,7 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     char nome[100], cpf[12], telefone[12], email[50];
     short dia, mes; int ano;
 
-    printf("- - - - - - Cadastro de Cliente - - - - - -\n\n");
+    printf(ROXO"- - - - - - Cadastro de Cliente - - - - - -\n\n"BRANCO);
     printf("Digite o nome do cliente:\n");
     scanf(" %[^\n]", nome);
     printf("Digite o CPF do cliente:\n");
@@ -101,7 +101,6 @@ void menu_remover_cliente(cliente **head_c, produto *head_p){
     scanf(" %[^\n]", cpf);
     cliente *cliente_removido = buscar_cliente(*head_c, cpf);
     remover_clientes(head_c, cliente_removido);
-    //system("cls");
     return; 
 }
 
