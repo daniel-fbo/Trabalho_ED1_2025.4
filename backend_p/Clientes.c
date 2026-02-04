@@ -2,11 +2,7 @@
 
 void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, char *email, data *data_nascimento)
 {
-    carrinho *novo_carrinho = malloc(sizeof(carrinho));
-    novo_carrinho->itens = NULL;
-
     cliente *cliente_novo = malloc(sizeof(cliente));
-
     if (cliente_novo == NULL)
     {
         printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
@@ -15,11 +11,33 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
         getchar();
         return;
     }
+    carrinho *novo_carrinho = malloc(sizeof(carrinho));
+    if (novo_carrinho == NULL) {
+        free(cliente_novo);
+        printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
+        printf("Tecle ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
+        return;
+    }
+
+
+    novo_carrinho->itens = NULL;
 
     cliente_novo->nome = malloc(strlen(nome) + 1);
     cliente_novo->cpf = malloc(strlen(cpf) + 1);
     cliente_novo->telefone = malloc(strlen(telefone) + 1);
     cliente_novo->email = malloc(strlen(email) + 1);
+    
+    if (!cliente_novo->nome || !cliente_novo->cpf || !cliente_novo->telefone || !cliente_novo->email) {
+        free(cliente_novo->nome);
+        free(cliente_novo->cpf);
+        free(cliente_novo->telefone);
+        free(cliente_novo->email);
+        free(novo_carrinho);
+        free(cliente_novo);
+        return;
+    } 
 
     strcpy(cliente_novo->nome, nome);
     strcpy(cliente_novo->cpf, cpf);
@@ -70,7 +88,8 @@ void remover_clientes(cliente **head_c, cliente *cliente_removido) {
         free(cliente_removido->cpf); 
         free(cliente_removido->telefone);
         free(cliente_removido->email);  
-        free(cliente_removido->carrinho); 
+        free(cliente_removido->data_nascimento); 
+        //free(cliente_removido->carrinho); 
         free(cliente_removido);
         printf(VERDE "Cliente removido com sucesso!\n" BRANCO);
     }
@@ -131,31 +150,46 @@ cliente *buscar_cliente(cliente *head_c, char *cpf)
         }
         temp_cliente = temp_cliente->prox;
     }
-    printf(VERMELHO "Cliente nao encontrado. Tecle Enter para voltar." BRANCO);
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
     return NULL;
 }
 
 void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, char *novo_telefone, char *novo_email, data *nova_data_nascimento, short opcao)
 {
+    char *temp;
     switch (opcao)
     {
     case 1:
-        strcpy(cliente_editado->nome, novo_nome);
+        temp = realloc(cliente_editado->nome, strlen(novo_nome) + 1);
+        if (temp != NULL) {
+            cliente_editado->nome = temp;
+            strcpy(cliente_editado->nome, novo_nome);
+        }
         break;
     case 2:
-        strcpy(cliente_editado->cpf, novo_cpf);
+        temp = realloc(cliente_editado->cpf, strlen(novo_cpf) + 1);
+        if (temp != NULL) {
+            cliente_editado->cpf = temp;
+            strcpy(cliente_editado->cpf, novo_cpf);
+        }
         break;
     case 3:
-        strcpy(cliente_editado->telefone, novo_telefone);
+        temp = realloc(cliente_editado->telefone, strlen(novo_telefone) + 1);
+        if (temp != NULL) {
+            cliente_editado->telefone = temp;
+            strcpy(cliente_editado->telefone, novo_telefone);
+        }
         break;
     case 4:
-        strcpy(cliente_editado->email, novo_email);
+        temp = realloc(cliente_editado->email, strlen(novo_email) + 1);
+        if (temp != NULL) {
+            cliente_editado->email = temp;
+            strcpy(cliente_editado->email, novo_email);
+        }
         break;
     case 5:
-        cliente_editado->data_nascimento = nova_data_nascimento;
+            cliente_editado->data_nascimento->dia = nova_data_nascimento->dia;
+            cliente_editado->data_nascimento->mes = nova_data_nascimento->mes;
+            cliente_editado->data_nascimento->ano = nova_data_nascimento->ano;
         break;
     }
     return;

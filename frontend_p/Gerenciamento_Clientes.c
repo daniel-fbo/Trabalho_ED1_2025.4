@@ -52,7 +52,7 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     printf(ROXO"- - - - - - Cadastro de Cliente - - - - - -\n\n"BRANCO);
     printf("Digite o nome do cliente:\n");
     scanf(" %[^\n]", nome);
-    printf("Digite o CPF do cliente:\n");
+    printf("Digite o CPF do cliente (apenas numeros):\n");
     scanf(" %[^\n]", cpf);  
     printf("Digite o telefone do cliente:\n");
     scanf(" %[^\n]", telefone);
@@ -63,6 +63,11 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     scanf("%hd/%hd/%d", &dia, &mes, &ano);
 
     data *data_nascimento = malloc(sizeof(data));
+    if (data_nascimento == NULL) {
+        printf(VERMELHO "Erro de memória!\n" BRANCO);
+        return;
+    }
+
     data_nascimento->dia = dia;
     data_nascimento->mes = mes;
     data_nascimento->ano = ano;
@@ -92,7 +97,15 @@ void menu_buscar_cliente(cliente *head_c, produto *head_p){
     scanf(" %[^\n]", cpf);
 
     cliente *temp_cliente = buscar_cliente(head_c, cpf);
+    if (temp_cliente == NULL) {
+        printf(VERMELHO "Cliente nao encontrado. Tecle Enter para voltar." BRANCO);
+        while (getchar() != '\n');
+        getchar();
+        system("cls");
+        return;
+    }
 
+    system("cls");
     printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
     printf("CPF: %s\n", temp_cliente -> cpf);
     printf("Telefone: %s\n", temp_cliente -> telefone);
@@ -112,8 +125,15 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
     char cpf[12];
     scanf(" %[^\n]", cpf);
     cliente *temp_cliente = buscar_cliente(head_c, cpf);
-    system("cls");
 
+    if (temp_cliente == NULL) {
+        printf(VERMELHO "Cliente nao encontrado. Tecle Enter para voltar." BRANCO);
+        while (getchar() != '\n');
+        getchar();
+        system("cls");
+        return;
+    }
+    system("cls");
     printf("\n\nNome do cliente: %s\n", temp_cliente -> nome);
     printf("CPF: %s\n", temp_cliente -> cpf);
     printf("Telefone: %s\n", temp_cliente -> telefone);
@@ -121,7 +141,7 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
     printf("Data de nascimento: %02hd/%02hd/%04d\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
 
 
-    int opcao;
+    int opcao=0;
     while (SIM){
         printf ("1- Editar nome.\n");
         printf ("2- Editar cpf.\n");

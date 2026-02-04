@@ -84,7 +84,14 @@ void menu_buscar_produto(cliente *head_c, produto *head_p){
     scanf(" %[^\n]", id);
 
     produto *temp_produto = buscar_produto(head_p, id);
+    if (temp_produto == NULL){
+        printf(VERMELHO"\033[4;31mProduto não encontrado.\033[0m Tecle Enter para voltar."BRANCO);
+        getchar();
+        system("cls");
+        return;
+    }
 
+    system("cls");
     printf("\n\nNome do produto: %s\n", temp_produto -> nome);
     printf("Codigo unico: %s\n", temp_produto -> id);
     printf("Preco por unidade do produto: %.2lf\n", temp_produto -> preco);
@@ -104,8 +111,14 @@ void menu_editar_produto(cliente *head_c, produto *head_p){
     scanf(" %[^\n]", id);
 
     produto *temp_produto = buscar_produto(head_p, id);
-    system("cls");
+    if (temp_produto == NULL){
+        printf(VERMELHO"\033[4;31mProduto não encontrado.\033[0m Tecle Enter para voltar."BRANCO);
+        getchar();
+        system("cls");
+        return;
+    }
 
+    system("cls");
     printf("\n\nNome do produto: %s\n", temp_produto -> nome);
     printf("Codigo unico: %s\n", temp_produto -> id);
     printf("Preco por unidade do produto: %.2lf\n", temp_produto -> preco);

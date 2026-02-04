@@ -1,17 +1,30 @@
 #include "backend.h"
 
-void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd){
-    produto *produto_novo;
-    produto_novo = malloc (sizeof(produto)); 
+void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd) {
+    produto *produto_novo = malloc(sizeof(produto));
+    if (produto_novo == NULL) {
+        printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
+        while (getchar() != '\n');
+        getchar();
+        return;
+    }
 
     produto_novo->nome = malloc(strlen(nome) + 1);
     produto_novo->id = malloc(strlen(id) + 1);
-    strcpy(produto_novo->nome,nome);
-    strcpy(produto_novo->id,id);
+
+    if (!produto_novo->nome || !produto_novo->id) {
+        free(produto_novo->nome);
+        free(produto_novo->id);
+        free(produto_novo);
+        return;
+    }
+
+    strcpy(produto_novo->nome, nome);
+    strcpy(produto_novo->id, id);
     produto_novo->preco = preco;
     produto_novo->qtd = qtd;
 
-    produto_novo -> prox = *head_p;
+    produto_novo->prox = *head_p;
     *head_p = produto_novo;
 
     system("cls");
@@ -20,7 +33,6 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
     while (getchar() != '\n');
     getchar();
     system("cls");
-    return;
 }
 
 void remover_produtos(produto **head_p, produto *produto_removido) {
@@ -103,28 +115,37 @@ produto *buscar_produto(produto *head_p, char *id){
         
         temp_produto = temp_produto -> prox;        
     } 
-    printf(VERMELHO"\033[4;31mProduto não encontrado.\033[0m Tecle Enter para voltar."BRANCO);
-    getchar();
-    system("cls");
     return NULL;
 }
 
 
 void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, double novo_preco, short nova_qtd, short opcao){
-    if (opcao == 1){
-        strcpy(produto_editado -> nome, novo_nome);
-        return;
-    }
-    if (opcao == 2){
-        strcpy(produto_editado -> id, novo_id);
-        return;
-    }
-    if (opcao == 3){
-        produto_editado -> preco = novo_preco;
-    }
-    if (opcao == 4){
-        produto_editado -> qtd = nova_qtd;
+    char *temp;
+    
+    switch (opcao) {
+        case 1: 
+            temp = realloc(produto_editado->nome, strlen(novo_nome) + 1);
+            if (temp != NULL) {
+                produto_editado->nome = temp;
+                strcpy(produto_editado->nome, novo_nome);
+            }
+            break;
+        
+        case 2: 
+            temp = realloc(produto_editado->id, strlen(novo_id) + 1);
+            if (temp != NULL) {
+                produto_editado->id = temp;
+                strcpy(produto_editado->id, novo_id);
+            }
+            break;
+            
+        case 3: 
+            produto_editado->preco = novo_preco;
+            break;
+            
+        case 4: 
+            produto_editado->qtd = nova_qtd;
+            break;
     }
 }
-
 
