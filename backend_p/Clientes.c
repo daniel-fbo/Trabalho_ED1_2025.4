@@ -5,19 +5,13 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
     cliente *cliente_novo = malloc(sizeof(cliente));
     if (cliente_novo == NULL)
     {
-        printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
+        printf(VERMELHO "Erro: Cadastro não pode ser concluído\n" BRANCO);
         return;
     }
     carrinho *novo_carrinho = malloc(sizeof(carrinho));
     if (novo_carrinho == NULL) {
         free(cliente_novo);
-        printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
+        printf(VERMELHO "Erro: Cadastro não pode ser concluído.\n" BRANCO);
         return;
     }
 
@@ -51,10 +45,7 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
 
     system("cls");
     printf(VERDE "Cliente cadastrado com sucesso!\n\n" BRANCO);
-    printf("Tecle Enter para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
+    return;
 }
 
 void remover_clientes(cliente **head_c, cliente *cliente_removido) {
@@ -93,28 +84,17 @@ void remover_clientes(cliente **head_c, cliente *cliente_removido) {
         free(cliente_removido);
         printf(VERDE "Cliente removido com sucesso!\n" BRANCO);
     }
-
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
+    return;
 }
 
-void listar_clientes(cliente *head_c)
-{
+void listar_clientes(cliente *head_c){
     system("cls");
     printf(ROXO "- - - - - - Lista de Clientes - - - - - -\n\n" BRANCO);
 
     cliente *temp_cliente = head_c;
-
     if (head_c == NULL)
     {
-        system("cls");
         printf(VERMELHO "Erro: Nao ha clientes cadastrados\n\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
         return;
     }
 
@@ -128,19 +108,14 @@ void listar_clientes(cliente *head_c)
         printf("\n\n");
         temp_cliente = temp_cliente->prox;
     }
-
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
     return;
 }
 
 cliente *buscar_cliente(cliente *head_c, char *cpf)
 {
-    if (head_c == NULL)
+    if (head_c == NULL){
         return NULL;
-
+    }
     cliente *temp_cliente = head_c;
     while (temp_cliente != NULL)
     {

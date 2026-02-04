@@ -1,4 +1,10 @@
 #include "frontend.h"
+void enter(){
+    printf("Tecle ENTER para voltar...\n");
+    while (getchar() != '\n');
+    getchar();
+    system("cls");
+}
 
 void menu_modo_compra(cliente *head_c,produto *head_p){
     system("cls");
@@ -6,9 +12,7 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
 
     if(head_c == NULL) {
         printf(VERMELHO"Erro: Nao ha clientes cadastrados no momento!\n\n"BRANCO);
-        printf("Tecle ENTER para voltar ao menu principal.\n");
-        while (getchar() != '\n');
-        system("cls");
+        enter();
         return;
     }
 
@@ -57,8 +61,7 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
         }
     } else{
         printf(VERMELHO"Cliente nao encontrado\n"BRANCO);
-        printf("Tecle ENTER para voltar...");
-        while (getchar() != '\n'); getchar();
+        enter();
         return;
     } 
 }
@@ -75,10 +78,7 @@ void menu_adicionar_carrinho(cliente *head_c, produto *head_p){
     {
         system("cls");
         printf(VERMELHO "Erro: Nao ha produtos cadastrados\n\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
+        enter();
         return;
     }
 
@@ -120,9 +120,7 @@ void menu_mostrar_carrinho(cliente *head_c, produto *head_p){
 
     listar_itens_carrinho(head_c,head_p);
 
-    printf("\nTecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    system("cls");
+    enter();
     return;
 
 }
@@ -158,9 +156,6 @@ void menu_retirar_carrinho(cliente *head_c, produto *head_p){
 
     listar_itens_carrinho(head_c,head_p);
 
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
+    enter();
     return;
 }

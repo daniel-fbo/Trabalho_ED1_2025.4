@@ -65,6 +65,7 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     data *data_nascimento = malloc(sizeof(data));
     if (data_nascimento == NULL) {
         printf(VERMELHO "Erro de memória!\n" BRANCO);
+        enter();
         return;
     }
 
@@ -73,7 +74,7 @@ void menu_cadastro_cliente(cliente **head_c, produto *head_p){
     data_nascimento->ano = ano;
 
     cadastrar_cliente(head_c, nome, cpf, telefone, email, data_nascimento);
-
+    enter();
     return;
 }
 
@@ -85,6 +86,7 @@ void menu_remover_cliente(cliente **head_c, produto *head_p){
     scanf(" %[^\n]", cpf);
     cliente *cliente_removido = buscar_cliente(*head_c, cpf);
     remover_clientes(head_c, cliente_removido);
+    enter();
     
     return; 
 }
@@ -99,9 +101,7 @@ void menu_buscar_cliente(cliente *head_c, produto *head_p){
     cliente *temp_cliente = buscar_cliente(head_c, cpf);
     if (temp_cliente == NULL) {
         printf(VERMELHO "Cliente nao encontrado. Tecle Enter para voltar." BRANCO);
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
+        enter();
         return;
     }
 
@@ -112,9 +112,7 @@ void menu_buscar_cliente(cliente *head_c, produto *head_p){
     printf("Email: %s\n", temp_cliente -> email);
     printf("Data de nascimento: %hd/%hd/%d\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
 
-    printf("\nTecle Enter para voltar...");
-    while (getchar() != '\n'); getchar();
-    system("cls");
+    enter();
     return;  
 }
 
@@ -128,9 +126,7 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
 
     if (temp_cliente == NULL) {
         printf(VERMELHO "Cliente nao encontrado. Tecle Enter para voltar." BRANCO);
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
+        enter();
         return;
     }
     system("cls");
@@ -198,9 +194,7 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
     editar_cliente(temp_cliente, temp_cliente -> nome, temp_cliente -> cpf, temp_cliente -> telefone, temp_cliente -> email, temp_cliente -> data_nascimento, opcao);
     system("cls");
     printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
-    printf("Tecle Enter para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
+    enter();
     return;  
 }
 

@@ -3,9 +3,8 @@
 void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, short qtd) {
     produto *produto_novo = malloc(sizeof(produto));
     if (produto_novo == NULL) {
-        printf(VERMELHO "Erro: Cadastro não pode ser concluído. Tecle ENTER para voltar...!\n" BRANCO);
-        while (getchar() != '\n');
-        getchar();
+        printf(VERMELHO "Erro: Cadastro não pode ser concluído.\n" BRANCO);
+        enter();
         return;
     }
 
@@ -29,9 +28,7 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
 
     system("cls");
     printf(VERDE "Produto cadastrado com sucesso!\n\n" BRANCO);
-    printf("Tecle Enter para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
+    enter();
     system("cls");
 }
 
@@ -67,10 +64,7 @@ void remover_produtos(produto **head_p, produto *produto_removido) {
         free(produto_removido);
         printf(VERDE "Produto removido com sucesso!\n" BRANCO);
     }
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
-    system("cls");
+    return;
 }
 
 void listar_produtos (produto *head_p){
@@ -82,10 +76,7 @@ void listar_produtos (produto *head_p){
     {
         system("cls");
         printf(VERMELHO "Erro: Nao ha produtos cadastrados\n\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
+        enter();
         return;
     }
 
@@ -98,17 +89,16 @@ void listar_produtos (produto *head_p){
         temp_produto = temp_produto -> prox;        
     } 
 
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    system("cls");
+    enter();
+    return;
 }
 
 produto *buscar_produto(produto *head_p, char *id){
 
-    if (head_p == NULL) return NULL;
-
+    if (head_p == NULL){
+        return NULL;
+    }
     produto *temp_produto = head_p;
-
     while (temp_produto != NULL){
 
         if(temp_produto->id != NULL && strcmp(temp_produto -> id, id) == 0) return temp_produto;

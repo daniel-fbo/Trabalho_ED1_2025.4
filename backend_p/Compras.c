@@ -15,11 +15,9 @@ void adicionar_carrinho(cliente *head_c, produto *head_p, char *id, int qtd){
 
     if(achar_produto->qtd < qtd){
 
-        printf("Quantidade nao suficiente no estoque.\n");
+        printf(VERMELHO"Quantidade nao suficiente no estoque.\n"BRANCO);
         printf("Disponivel: %d\n", achar_produto->qtd);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
+        enter();
         return;
 
     }
@@ -54,10 +52,8 @@ void listar_itens_carrinho(cliente *head_c, produto *head_p){
     itemcarrinho *item = head_c->carrinho->itens;
 
     if(item == NULL){
-        printf("Carrinho vazio. Adicione um item. \n");
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
+        printf(VERMELHO"Carrinho vazio. Adicione um item. \n"BRANCO);
+        enter();
         return;
     }
     while(item != NULL){
@@ -66,9 +62,7 @@ void listar_itens_carrinho(cliente *head_c, produto *head_p){
         item = item->prox;
     }
     
-    printf("Tecle ENTER para voltar...\n");
-    while (getchar() != '\n');
-    getchar();
+    enter();
     return;
 }
 
@@ -79,11 +73,8 @@ void retirar_carrinho(cliente *head_c, produto *head_p, char *id, int qtd){
     if(qtd <= 0 ) return;
 
     if(item == NULL){
-        printf("Carrinho vazio. Adicione um item. \n");
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-        return;
+        printf(VERMELHO"Carrinho vazio. Adicione um item. \n"BRANCO);
+        enter();
     }
 
     produto *achar_produto = head_p;
