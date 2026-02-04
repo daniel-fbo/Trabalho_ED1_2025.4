@@ -39,44 +39,46 @@ void cadastrar_cliente(cliente **head_c, char *nome, char *cpf, char *telefone, 
     system("cls");
 }
 
-void remover_clientes(cliente **head_c, cliente *cliente_removido)
-{
-    if (*head_c == NULL || cliente_removido == NULL) return;
-    
-    if (*head_c == cliente_removido)
-    {
-        *head_c = cliente_removido->prox;
-    }
-    else
-    {
-        cliente *atual = *head_c;
-        while (atual->prox != NULL && atual->prox != cliente_removido)
-        {
-            atual = atual->prox;
-        }
-        if (atual->prox == cliente_removido)
-        {
-            atual->prox = cliente_removido->prox;
-        }
-        else
-        {
-            printf(VERMELHO "Erro: Cliente nao encontrado na lista.\n" BRANCO);
-            printf("Tecle ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-            system("cls");
-            return;
+void remover_clientes(cliente **head_c, cliente *cliente_removido) {
+    bool encontrado = NAO; 
+
+    if (*head_c == NULL || cliente_removido == NULL) {
+        printf(VERMELHO "Erro: Lista vazia ou cliente invalido.\n" BRANCO);
+    } 
+    else {
+        if (*head_c == cliente_removido) {
+            *head_c = cliente_removido->prox;
+            encontrado = SIM;
+        } 
+        else {
+            cliente *atual = *head_c;
+            while (atual->prox != NULL && atual->prox != cliente_removido) {
+                atual = atual->prox;
+            }
+
+            if (atual->prox == cliente_removido) {
+                atual->prox = cliente_removido->prox;
+                encontrado = SIM;
+            } else {
+                printf(VERMELHO "Erro: Cliente nao encontrado na lista.\n" BRANCO);
+            }
         }
     }
 
-    free(cliente_removido);
+    if (encontrado == SIM) {
+        free(cliente_removido->nome); 
+        free(cliente_removido->cpf); 
+        free(cliente_removido->telefone);
+        free(cliente_removido->email);  
+        free(cliente_removido->carrinho); 
+        free(cliente_removido);
+        printf(VERDE "Cliente removido com sucesso!\n" BRANCO);
+    }
 
-    printf(VERDE "Cliente removido com sucesso!\n" BRANCO);
     printf("Tecle ENTER para voltar...\n");
     while (getchar() != '\n');
     getchar();
     system("cls");
-    return;
 }
 
 void listar_clientes(cliente *head_c)

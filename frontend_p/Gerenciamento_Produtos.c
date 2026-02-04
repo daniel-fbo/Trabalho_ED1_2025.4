@@ -104,6 +104,7 @@ void menu_editar_produto(cliente *head_c, produto *head_p){
     scanf(" %[^\n]", id);
 
     produto *temp_produto = buscar_produto(head_p, id);
+    system("cls");
 
     printf("\n\nNome do produto: %s\n", temp_produto -> nome);
     printf("Codigo unico: %s\n", temp_produto -> id);
@@ -126,18 +127,22 @@ void menu_editar_produto(cliente *head_c, produto *head_p){
             case 1:
                 printf("Qual o novo nome?\n");
                 scanf("%[^\n]", temp_produto -> nome);
+                system("cls");
                 break;
             case 2:
                 printf("Qual o novo codigo unico do produto?\n");
                 scanf("%[^\n]", temp_produto -> id);
+                system("cls");
                 break;
             case 3:
                 printf("Qual o novo preco?\n");
-                scanf("%.2lf", temp_produto -> preco);
+                scanf("%lf", &temp_produto -> preco);
+                system("cls");
                 break;
             case 4:
                 printf("Qual a nova quantidade de itens em estoque?\n");
-                scanf("%hd", temp_produto ->qtd);
+                scanf("%hd", &temp_produto ->qtd);
+                system("cls");
                 break;
             case 5:
                 system("cls");

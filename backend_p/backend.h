@@ -9,7 +9,8 @@
 #define VERDE "\033[32m"
 #define ROXO "\033[0;35m"
 #define BRANCO "\033[0m"
-#define SIM true 
+#define SIM true
+#define NAO false 
 
 typedef struct Data{
     short dia;

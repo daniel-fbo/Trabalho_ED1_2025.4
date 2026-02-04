@@ -23,42 +23,42 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
     return;
 }
 
-void remover_produtos (produto **head_p, produto *produto_removido){
-    if(*head_p == NULL || produto_removido == NULL){
-        printf(VERMELHO "Erro: Produto nao encontrado na lista.\n" BRANCO);
-        printf("Tecle ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-        system("cls");
-        return;
+void remover_produtos(produto **head_p, produto *produto_removido) {
+    bool encontrado = NAO;
+
+    if (*head_p == NULL || produto_removido == NULL) {
+        printf(VERMELHO "Erro: Lista vazia ou produto invalido.\n" BRANCO);
+    } 
+    else {
+        if (*head_p == produto_removido) {
+            *head_p = produto_removido->prox;
+            encontrado = SIM;
+        } 
+        else {
+            produto *anterior = *head_p;
+            while (anterior->prox != NULL && anterior->prox != produto_removido) {
+                anterior = anterior->prox;
+            }
+
+            if (anterior->prox == produto_removido) {
+                anterior->prox = produto_removido->prox;
+                encontrado = SIM;
+            } else {
+                printf(VERMELHO "Erro: Produto nao encontrado na lista.\n" BRANCO);
+            }
+        }
     }
 
-    if(*head_p == produto_removido){
-        
-        *head_p = produto_removido->prox;
-
+    if (encontrado == SIM) {
         free(produto_removido->nome);
         free(produto_removido->id);
         free(produto_removido);
-
-        return;
+        printf(VERDE "Produto removido com sucesso!\n" BRANCO);
     }
-
-    produto *produto_anterior = *head_p;
-    while (produto_anterior->prox != NULL && produto_anterior -> prox != produto_removido){
-        produto_anterior = produto_anterior -> prox;
-    }
-    produto_anterior -> prox = produto_removido -> prox;
-    free (produto_removido->nome);
-    free (produto_removido->id);
-    free (produto_removido);
-
-    printf(VERDE "Produto removido com sucesso!\n" BRANCO);
     printf("Tecle ENTER para voltar...\n");
     while (getchar() != '\n');
     getchar();
     system("cls");
-    return;
 }
 
 void listar_produtos (produto *head_p){
@@ -88,7 +88,6 @@ void listar_produtos (produto *head_p){
 
     printf("Tecle ENTER para voltar...\n");
     while (getchar() != '\n');
-    getchar();
     system("cls");
 }
 
