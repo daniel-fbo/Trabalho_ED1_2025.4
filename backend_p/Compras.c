@@ -52,7 +52,7 @@ void listar_itens_carrinho(cliente *head_c, produto *head_p){
 
         item = item->prox;
     }
-
+    return;
 }
 
 void retirar_carrinho(cliente *head_c, produto *head_p, char *id, int qtd){

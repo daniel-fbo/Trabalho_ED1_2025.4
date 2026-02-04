@@ -103,7 +103,7 @@ produto *buscar_produto(produto *head_p, char *id){
         
         temp_produto = temp_produto -> prox;        
     } 
-    printf("\033[4;31mProduto não encontrado.\033[0m Tecle Enter para voltar.");
+    printf(VERMELHO"\033[4;31mProduto não encontrado.\033[0m Tecle Enter para voltar."BRANCO);
     getchar();
     system("cls");
     return NULL;
