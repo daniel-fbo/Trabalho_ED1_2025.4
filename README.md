@@ -1,7 +1,3 @@
-
-# Gerenciador_Notas
-Sistema de gerenciamento de notas acadêmicas desenvolvido em C. 
-
 # Trabalho Prático — Listas Encadeadas em C
 
 **CRUD de Clientes e Produtos**
