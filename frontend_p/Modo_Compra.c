@@ -1,6 +1,6 @@
 #include "frontend.h"
 
-void menu_modo_compra(cliente *head_c,produto *head_p){
+void menu_modo_compra(cliente *head_c, produto *head_p){
     system("cls");
     printf(ROXO"- - - MODO COMPRA - - -\n\n"BRANCO);
 
@@ -14,14 +14,14 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
     char cpf_digitado[12];
     printf("Digite o CPF para comprar:\n");
     scanf(" %[^\n]",cpf_digitado);
-    while (getchar() != '\n');
-
+    
     encontrado = buscar_cliente(head_c,cpf_digitado); 
     system("cls");
     
     if(encontrado != NULL){
         int opcao;
         while(SIM){
+            system("cls"); 
             printf(ROXO"\n- - - MODO COMPRA - - > Perfil (%s) < - -\n"BRANCO, encontrado->nome);
             printf(" 1 - Adicionar produto no carrinho\n");
             printf(" 2 - Mostrar carrinho\n");
@@ -29,28 +29,30 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
             printf(" 4 - Finalizar/Voltar\n");
             printf("Digite uma opcao: \n");
             scanf(" %d", &opcao);
+            while(getchar() != '\n');
     
             switch (opcao)
             {
             case 1:
                 system("cls");
-                menu_adicionar_carrinho(head_c,head_p);
+                menu_adicionar_carrinho(encontrado, head_p);
                 break;
             case 2:
                 system("cls");
-                menu_mostrar_carrinho(head_c,head_p);
+                menu_mostrar_carrinho(encontrado, head_p);
                 break;
             case 3:
                 system("cls");
-                menu_retirar_carrinho(head_c,head_p);
+                menu_retirar_carrinho(encontrado, head_p);
                 break;
             case 4:
                 system("cls");
                 return;
             default:
-            system("cls");
-            printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
-            break;
+                system("cls");
+                printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);
+                enter();
+                break;
             }
         }
     } else{
@@ -60,95 +62,80 @@ void menu_modo_compra(cliente *head_c,produto *head_p){
     } 
 }
 
-void menu_adicionar_carrinho(cliente *head_c, produto *head_p){
-    printf(ROXO" - - - - - MENU ADICIONAR PRODUTOS NO CARRINHO - - - - - \n\n"BRANCO);
+void menu_adicionar_carrinho(cliente *cliente_atual, produto *head_p){
     char op = 'S', id[20];
     int qtd = 0;
 
-    printf(VERDE" - - - - - LISTA DE PRODUTOS  - - - - - \n"BRANCO);
-
-    if (head_p == NULL)
-    {
+    system("cls");
+    
+    while(op == 'S' || op == 's'){
         system("cls");
-        printf(VERMELHO "Erro: Nao ha produtos cadastrados\n\n" BRANCO);
-        enter();
-        return;
-    }
+        printf(ROXO" - - - ADICIONAR AO CARRINHO DE %s - - - \n\n"BRANCO, cliente_atual->nome);
+        
+        printf(VERDE" - - PRODUTOS DISPONIVEIS - - \n"BRANCO);
+        listar_produtos(head_p); 
+        printf("\n------------------------------------------------\n");
+        printf(VERDE" - - SEU CARRINHO ATUAL - - \n"BRANCO);
+        listar_itens_carrinho(cliente_atual, head_p);
+        printf("------------------------------------------------\n\n");
 
-    produto *temp_produto = head_p;
-    while (temp_produto != NULL){
-        printf("Nome do produto: %s\n", temp_produto -> nome);
-        printf("Codigo unico: %s\n", temp_produto -> id);
-        printf("Unidades do produto em estoque: %d\n", temp_produto -> qtd);
-        printf("Preco: %.2lf\n\n", temp_produto -> preco);
-        temp_produto = temp_produto -> prox;        
-    }
-    
-    while(op == 'S'){
-
-        printf("Digite o Codigo do produto:\n");
+        printf("Digite o CODIGO do produto para adicionar:\n");
         scanf(" %s", id);
 
-        printf("Digite a Quantidade desse produto:\n");
+        printf("Digite a QUANTIDADE:\n");
         scanf("%d", &qtd);
 
-        adicionar_carrinho(head_c,head_p, id, qtd);
+        adicionar_carrinho(cliente_atual, head_p, id, qtd);
 
         while(getchar() != '\n');
-        printf("Deseja adicionar outro produto? (S/N)\n");
+        printf("\nDeseja adicionar outro produto? (S/N)\n");
         scanf("%c", &op);
-
-        printf(VERDE"\n - No seu carrinho - "BRANCO);
-        listar_itens_carrinho(head_c,head_p);
     }
     
     system("cls");
     return;
 }
 
-void menu_mostrar_carrinho(cliente *head_c, produto *head_p){
-    printf(ROXO" - - - - - MENU MOSTRAR PRODUTOS DO CARRINHO - - - - - \n"BRANCO);
+void menu_mostrar_carrinho(cliente *cliente_atual, produto *head_p){
+    printf(ROXO" - - - - - CARRINHO DE COMPRAS - - - - - \n\n"BRANCO);
+    printf("Cliente: %s\n\n", cliente_atual->nome);
 
-    printf(VERDE"Carrindo de %s\n" BRANCO, head_c->nome);
-
-    listar_itens_carrinho(head_c,head_p);
-
-    enter();
+    listar_itens_carrinho(cliente_atual, head_p);
+    
+    printf("\n");
+    enter(); 
     return;
-
 }
 
-void menu_retirar_carrinho(cliente *head_c, produto *head_p){
-    system("cls");
+void menu_retirar_carrinho(cliente *cliente_atual, produto *head_p){
     char op = 'S', id[20];
     int qtd = 0;
 
-    printf(ROXO" - - - - - MENU RETIRAR PRODUTOS DO CARRINHO - - - - - \n"BRANCO);
+    while(op == 'S' || op == 's'){
+        system("cls");
+        printf(ROXO" - - - RETIRAR DO CARRINHO DE %s - - - \n\n"BRANCO, cliente_atual->nome);
+        
+        if (cliente_atual->carrinho->itens == NULL) {
+            printf(VERMELHO "Carrinho vazio. Nao ha nada para retirar.\n" BRANCO);
+            enter(); 
+            return;  
+        }
+        listar_itens_carrinho(cliente_atual, head_p);
+        printf("\n------------------------------------------------\n");
 
-    printf("Carrindo de %s\n", head_c->nome);
-
-    while(op == 'S'){
-
-        listar_itens_carrinho(head_c, head_p);
-
-        printf("Digite o Codigo do produto:\n");
+        printf("Digite o CODIGO do produto para remover:\n");
         scanf(" %s", id);
 
-        printf("Digite a Quantidade de retirada desse produto:\n");
+        printf("Digite a QUANTIDADE para retirar:\n");
         scanf("%d", &qtd);
 
-        retirar_carrinho(head_c, head_p, id, qtd);
+        retirar_carrinho(cliente_atual, head_p, id, qtd);
 
         while(getchar() != '\n');
-        printf("Deseja retirar outro produto? (S/N)\n");
+        printf("\nDeseja retirar outro produto? (S/N)\n");
         scanf("%c", &op);
     }
     
     system("cls");
-    printf(VERDE" - - Carrinho atualizado - - \n\n"BRANCO);
-
-    listar_itens_carrinho(head_c,head_p);
-
-    enter();
     return;
 }

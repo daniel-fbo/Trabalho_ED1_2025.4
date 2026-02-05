@@ -12,6 +12,7 @@ void menu_principal(cliente **head_c, produto **head_p){
         printf("Digite a opcao desejada:\n");
 
         scanf(" %d", &opcao);
+        while(getchar() != '\n'); 
 
         switch (opcao){
         case 1:
@@ -29,7 +30,7 @@ void menu_principal(cliente **head_c, produto **head_p){
         case 4:
             system("cls");
             printf(VERDE "Saindo do programa..."BRANCO);
-            exit(EXIT_SUCCESS);
+            return;
         default:
             system("cls");
             printf(VERMELHO"Opcao Invalida! Digite novamente!\n\n"BRANCO);

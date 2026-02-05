@@ -48,7 +48,7 @@ void menu_gerenciamento_produtos(cliente **head_c, produto **head_p){
 }
 
 void menu_cadastro_produto(cliente *head_c, produto **head_p){
-    char nome[100], id[6];
+    char nome[100], id[50];
     short qtd;
     double preco;
 
@@ -73,6 +73,12 @@ void menu_remover_produto(cliente *head_c, produto **head_p){
     char id[12];
     scanf(" %[^\n]", id);
     produto *produto_removido = buscar_produto(*head_p, id);
+    if (produto_removido == NULL){
+        printf(VERMELHO"Produto não encontrado.\n"BRANCO);
+        enter();
+        return;
+    }
+
     remover_produtos(head_p, produto_removido);
     enter();
 
@@ -83,7 +89,7 @@ void menu_buscar_produto(cliente *head_c, produto *head_p){
     printf(ROXO"- - - - - - Buscar Produto - - - - - -\n\n"BRANCO);
     printf("Digite o codigo unico do produto:\n");
 
-    char id[6];
+    char id[50];
     scanf(" %[^\n]", id);
 
     produto *temp_produto = buscar_produto(head_p, id);
@@ -106,7 +112,7 @@ void menu_buscar_produto(cliente *head_c, produto *head_p){
 void menu_editar_produto(cliente *head_c, produto *head_p){
     printf(ROXO"- - - - - - Editar Produto - - - - - -\n\n"BRANCO);
     printf("Digite o codigo unico do produto a ser editado:\n");
-    char id[6];
+    char id[50];
     scanf(" %[^\n]", id);
 
     produto *temp_produto = buscar_produto(head_p, id);
@@ -123,7 +129,12 @@ void menu_editar_produto(cliente *head_c, produto *head_p){
     printf("Quantidade de itens em estoque: %hd\n\n", temp_produto -> qtd);
 
     int opcao;
+    char string[200];
+    double temp_preco;
+    short temp_qtd;
+
     while (SIM){
+        system("cls");
         printf ("1- Editar nome.\n");
         printf ("2- Editar codigo unico.\n");
         printf ("3- Editar preco.\n");
@@ -132,44 +143,50 @@ void menu_editar_produto(cliente *head_c, produto *head_p){
         printf("Digite a opcao desejada:\n");
         scanf(" %d", &opcao);
 
+        while(getchar() != '\n');
+        if (opcao == 5){
+            system("cls");
+            return;
+        }
         switch(opcao){
             case 1:
                 printf("Qual o novo nome?\n");
-                scanf("%[^\n]", temp_produto -> nome);
+                scanf(" %[^\n]", string);
+                editar_produto(temp_produto, string, NULL, 0, 0, 1);
                 system("cls");
+                printf(VERDE "Produto editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 2:
                 printf("Qual o novo codigo unico do produto?\n");
-                scanf("%[^\n]", temp_produto -> id);
+                scanf(" %[^\n]", string);
+                editar_produto(temp_produto, NULL, string, 0, 0, 2);
                 system("cls");
+                printf(VERDE "Produto editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 3:
                 printf("Qual o novo preco?\n");
-                scanf("%lf", &temp_produto -> preco);
+                scanf(" %lf", &temp_preco);
+                editar_produto(temp_produto, NULL, NULL, temp_preco, 0, 3);
                 system("cls");
+                printf(VERDE "Produto editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 4:
                 printf("Qual a nova quantidade de itens em estoque?\n");
-                scanf("%hd", &temp_produto ->qtd);
+                scanf(" %hd", &temp_qtd);
+                editar_produto(temp_produto, NULL, NULL, 0, temp_qtd, 4);
                 system("cls");
+                printf(VERDE "Produto editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
-            case 5:
-                system("cls");
-                return;
             default:
                 system("cls");
                 printf(VERDE"Opcao invalida! Digite novamente.\n\n"BRANCO);
                 break;
         }
-        system("cls");
     }
-
-    editar_produto(temp_produto, temp_produto -> nome, temp_produto -> id, temp_produto -> preco, temp_produto -> qtd, opcao);
-    
-    system("cls");
-    printf(VERDE "Produto editado com sucesso!\n\n" BRANCO);
-    enter();
-    return;  
 }
 
 

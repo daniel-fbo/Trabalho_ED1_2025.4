@@ -66,8 +66,8 @@ void listar_produtos (produto *head_p);
 void editar_cliente(cliente *cliente_editado, char *novo_nome, char *novo_cpf, char *novo_telefone, char *novo_email, data *nova_data_nascimento, short opcao);
 void editar_produto(produto *produto_editado, char *novo_nome, char *novo_id, double novo_preco, short nova_qtd, short opcao);
 
-void free_carrinho();
-void limpar_memoria();
+void free_carrinho(carrinho *carrinho);
+void limpar_memoria(cliente **head_c, produto **head_p);
 
 static inline void enter() {
     printf("Tecle ENTER para voltar...\n");

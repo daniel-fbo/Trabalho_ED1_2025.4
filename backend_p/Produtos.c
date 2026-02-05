@@ -4,7 +4,6 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
     produto *produto_novo = malloc(sizeof(produto));
     if (produto_novo == NULL) {
         printf(VERMELHO "Erro: Cadastro não pode ser concluído.\n" BRANCO);
-        enter();
         return;
     }
 
@@ -28,8 +27,6 @@ void cadastrar_produto(produto **head_p, char *nome, char *id, double preco, sho
 
     system("cls");
     printf(VERDE "Produto cadastrado com sucesso!\n\n" BRANCO);
-    enter();
-    system("cls");
 }
 
 void remover_produtos(produto **head_p, produto *produto_removido) {
@@ -76,7 +73,6 @@ void listar_produtos (produto *head_p){
     {
         system("cls");
         printf(VERMELHO "Erro: Nao ha produtos cadastrados\n\n" BRANCO);
-        enter();
         return;
     }
 
@@ -89,7 +85,6 @@ void listar_produtos (produto *head_p){
         temp_produto = temp_produto -> prox;        
     } 
 
-    enter();
     return;
 }
 

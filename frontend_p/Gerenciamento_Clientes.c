@@ -86,6 +86,11 @@ void menu_remover_cliente(cliente **head_c, produto *head_p){
     char cpf[12];
     scanf(" %[^\n]", cpf);
     cliente *cliente_removido = buscar_cliente(*head_c, cpf);
+    if (cliente_removido == NULL) {
+        printf(VERMELHO "Cliente nao encontrado.\n" BRANCO);
+        enter();
+        return;
+    }
     remover_clientes(head_c, cliente_removido);
     enter();
     
@@ -137,11 +142,12 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
     printf("Email: %s\n", temp_cliente -> email);
     printf("Data de nascimento: %02hd/%02hd/%04d\n\n", temp_cliente -> data_nascimento -> dia, temp_cliente -> data_nascimento -> mes, temp_cliente -> data_nascimento -> ano);
 
-
+ 
     int opcao=0;
     char string[200];
     
     while (SIM){
+        system("cls");
         printf ("1- Editar nome.\n");
         printf ("2- Editar cpf.\n");
         printf ("3- Editar telefone.\n");
@@ -152,39 +158,51 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
         scanf(" %d", &opcao);
         while(getchar() != '\n');
         if (opcao==6){
+            system("cls");
             return;
         }
 
         switch(opcao){
             case 1:
                 printf("Qual o novo nome?\n");
-                scanf("%[^\n]", temp_cliente ->nome);
+                scanf(" %[^\n]", string);
                 editar_cliente(temp_cliente, string, NULL, NULL, NULL, NULL, 1);
                 system("cls");
+                printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 2:
                 printf("Qual o novo cpf?\n");
-                scanf("%[^\n]", temp_cliente -> cpf);
+                scanf(" %[^\n]", string);
                 editar_cliente(temp_cliente, NULL, string, NULL, NULL, NULL, 2);
                 system("cls");
+                printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 3:
                 printf("Qual o novo telefone?\n");
+                scanf(" %[^\n]", string);
                 editar_cliente(temp_cliente, NULL, NULL, string, NULL, NULL, 3);
                 system("cls");
+                printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 4:
                 printf("Qual o novo email?\n");
-                scanf("%[^\n]", temp_cliente -> email);
+                scanf(" %[^\n]", string);
                 editar_cliente(temp_cliente, NULL, NULL, NULL, string, NULL, 4);
                 system("cls");
+                printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;
             case 5:{
                 data nova_data;
                 printf("Digite a data de nascimento do cliente (formato DD/MM/AAAA):\n");
-                scanf("%hd/%hd/%d", &nova_data.dia, &nova_data.mes, &nova_data.ano);
+                scanf(" %hd/%hd/%d", &nova_data.dia, &nova_data.mes, &nova_data.ano);
                 editar_cliente(temp_cliente, NULL, NULL, NULL, NULL, &nova_data, 5);
                 system("cls");
+                printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
+                enter();
                 break;}
             default:
                 system("cls");
@@ -192,10 +210,6 @@ void menu_editar_cliente(cliente *head_c, produto *head_p){
                 break;
         } 
     }
-
-    printf(VERDE "Cliente editado com sucesso!\n\n" BRANCO);
-    enter();
-    return;  
 }
 
 
